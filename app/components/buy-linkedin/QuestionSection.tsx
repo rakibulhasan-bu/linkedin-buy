@@ -129,8 +129,8 @@ export default function QuestionSection() {
                     <div className='p-8 myShadow rounded mt-6'>
                         <h2 className="text-xl font-medium">06. Which verification type do you need?</h2>
                         <div className='grid grid-cols-2 gap-6 pt-6'>
-                            <button onClick={() => handleSubmit('verified')} className={`optionButton ${activeQuestionValue === 'organic' && 'bg-primary text-white'}`}>Verified account</button>
-                            <button onClick={() => handleSubmit('non-verified')} className={`optionButton ${activeQuestionValue === 'manually' && 'bg-primary text-white'}`}>Non verified account</button>
+                            <button onClick={() => handleSubmit('verified')} className={`optionButton ${activeQuestionValue === 'verified' && 'bg-primary text-white'}`}>Verified account</button>
+                            <button onClick={() => handleSubmit('non-verified')} className={`optionButton ${activeQuestionValue === 'non-verified' && 'bg-primary text-white'}`}>Non verified account</button>
                         </div>
                     </div>
                 )
