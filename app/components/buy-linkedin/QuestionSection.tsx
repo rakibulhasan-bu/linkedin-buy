@@ -10,7 +10,9 @@ export default function QuestionSection() {
         quantity: 0,
         connection: 0,
         accountAge: 0,
-        connectionType: ""
+        connectionType: "",
+        emailType: "",
+        accountVerification: ""
     })
 
     const previousQuestionHandler = () => {
@@ -30,7 +32,11 @@ export default function QuestionSection() {
     }
 
     const handleFinalSubmit = () => {
-        toast.success("your submit is permitted")
+        if (activeQuestionValue !== null) {
+            setQuestionNo(prev => prev + 1)
+            toast.success("your submit is permitted")
+        }
+        toast.error("Please select one option")
     }
 
     const handleSubmit = (value: any) => {
@@ -46,18 +52,27 @@ export default function QuestionSection() {
         if (questionNo === 3) {
             setQuestionData({ ...questionData, connectionType: value })
         }
+        if (questionNo === 4) {
+            setQuestionData({ ...questionData, emailType: value })
+        }
+        if (questionNo === 5) {
+            setQuestionData({ ...questionData, accountVerification: value })
+        }
         setActiveQuestionValue(value)
     }
 
     return (
         <div className='max-w-4xl mx-auto py-6 pt-12'>
             {/* {questionData.quantity}, {questionData.connection} {activeQuestionValue !== null ? "true" : "false"} , {questionData.accountAge}, {questionData.connectionType} ,{activeQuestionValue} */}
-            <div className={`${questionNo === 0 && 'w-1/6' || questionNo === 1 && 'w-2/6' || questionNo === 2 && 'w-3/6' || questionNo === 3 && 'w-4/6' || questionNo === 4 && 'w-5/6' || questionNo === 5 && 'w-6/6'} bg-gradient-to-tr from-blue-300 bg-blue-800 h-1.5 rounded-md`}>
+            {
+                questionNo < 6 && (<div className={`${questionNo === 0 && 'w-1/6' || questionNo === 1 && 'w-2/6' || questionNo === 2 && 'w-3/6' || questionNo === 3 && 'w-4/6' || questionNo === 4 && 'w-5/6' || questionNo === 5 && 'w-6/6'} bg-gradient-to-tr from-blue-300 bg-blue-800 h-1.5 rounded-md mb-6`}>
 
-            </div>
+                </div>)
+            }
+
             {
                 questionNo === 0 && (
-                    <div className='p-8 myShadow rounded mt-6'>
+                    <div className='p-8 myShadow rounded'>
                         <h2 className="text-xl font-medium">01. How much accounts do you want to buy? </h2>
                         <div className='grid grid-cols-4 gap-6 pt-6'>
                             <button onClick={() => handleSubmit(100)} className={`optionButton ${activeQuestionValue === 100 && 'bg-primary text-white'}`}>100</button>
@@ -144,15 +159,61 @@ export default function QuestionSection() {
                 )
             }
 
-            <div className='flex items-center justify-between my-6'>
-                <button onClick={previousQuestionHandler} className="text-lg  px-10 font-medium bg-white text-black/80 myShadow rounded py-1.5 hover:bg-primary hover:text-white">Previous</button>
-                {
-                    questionNo === 5 ?
-                        <button onClick={handleFinalSubmit} className={`optionButton  px-10 ${(activeQuestionValue !== null) && 'bg-primary text-white'}`}>Submit</button>
-                        :
-                        <button onClick={nextQuestionHandler} className={`optionButton  px-10 ${(activeQuestionValue !== null) && 'bg-primary text-white'}`}>Next</button>
-                }
-            </div>
+            {questionNo === 6 && (
+                <div className='px-8 py-6 myShadow rounded'>
+                    <h2 className="text-xl font-medium text-center">Your Submitted Answers</h2>
+                    <div className='space-y-2 pt-4'>
+                        <div className=''>
+                            <h2 className="text-xl">01. How much accounts do you want to buy? </h2>
+                            <h2 className="text-xl font-medium">Ans: {questionData.quantity}</h2>
+                        </div>
+                        <div className=''>
+                            <h2 className="text-xl">02. Required number of connection /friends per accounts?</h2>
+                            <h2 className="text-xl font-medium">Ans: {questionData.connection}</h2>
+                        </div>
+                        <div className=''>
+                            <h2 className="text-xl">03. Required age of the accounts?</h2>
+                            <h2 className="text-xl font-medium">Ans: {questionData.accountAge}</h2>
+                        </div>
+                        <div className=''>
+                            <h2 className="text-xl">04. Which connection type do you need?</h2>
+                            <h2 className="text-xl font-medium">Ans: {questionData.connectionType}</h2>
+                        </div>
+                        <div className=''>
+                            <h2 className="text-xl">05. Which type Email will be associated with your linkedin accounts?</h2>
+                            <h2 className="text-xl font-medium">Ans: {questionData.emailType}</h2>
+                        </div>
+                        <div className=''>
+                            <h2 className="text-xl">06. Which verification type do you need?</h2>
+                            <h2 className="text-xl font-medium">Ans: {questionData.accountVerification}</h2>
+                        </div>
+                    </div>
+                    <h2 className="text-xl font-medium text-center pt-4 text-primary">Give Your  Email or WhatsApp or messenger link or Skype</h2>
+                    <div className='grid grid-cols-2 gap-6 pt-4'>
+                        <input type="text" placeholder="Your Email account here" className="border border-gray-300 rounded py-1 px-4" />
+                        <input type="text" placeholder="Your WhatsApp number here" className="border border-gray-300 rounded py-1 px-4" />
+                        <input type="text" placeholder="Your messenger account here" className="border border-gray-300 rounded py-1 px-4" />
+                        <input type="text" placeholder="Your Skype account here" className="border border-gray-300 rounded py-1 px-4" />
+                    </div>
+                    <div className='pt-4 flex items-center justify-center'>
+                        <button className="bg-green-500 hover:bg-green-600 text-white font-medium rounded px-6 py-1.5">Order Now</button>
+                    </div>
+                </div>
+            )
+            }
+
+            {
+                questionNo < 6 &&
+                <div className='flex items-center justify-between my-6'>
+                    <button onClick={previousQuestionHandler} className="text-lg  px-10 font-medium bg-white text-black/80 myShadow rounded py-1.5 hover:bg-primary hover:text-white">Previous</button>
+                    {
+                        questionNo === 5 ?
+                            <button onClick={handleFinalSubmit} className={`optionButton  px-10 ${(activeQuestionValue !== null) && 'bg-primary text-white'}`}>Submit</button>
+                            :
+                            <button onClick={nextQuestionHandler} className={`optionButton  px-10 ${(activeQuestionValue !== null) && 'bg-primary text-white'}`}>Next</button>
+                    }
+                </div>
+            }
         </div>
     );
 };
