@@ -3,11 +3,11 @@
 import { useState } from "react";
 import { quiz } from "../data";
 
-const page = () => {
+const QuizPage = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [selectedAnswer, setSelectedAnswer] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
+  const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState({
     score: 0,
@@ -18,7 +18,7 @@ const page = () => {
   const { questions } = quiz;
   const { question, answers, correctAnswer } = questions[activeQuestion];
 
-  const handleSubmit = (answers, i) => {
+  const handleSubmit = (answers: any, i: number) => {
     setChecked(true);
     setSelectedAnswerIndex(i);
     if (answers === correctAnswer) {
@@ -31,18 +31,18 @@ const page = () => {
   };
 
   const nextQuestion = () => {
-    setSelectedAnswerIndex(null);
+    setSelectedAnswerIndex(0);
     setResult((prev) =>
       selectedAnswer
         ? {
-            ...prev,
-            score: prev.score + 5,
-            correctAnswers: prev.correctAnswers + 1,
-          }
+          ...prev,
+          score: prev.score + 5,
+          correctAnswers: prev.correctAnswers + 1,
+        }
         : {
-            ...prev,
-            wrongAnswers: prev.wrongAnswers + 1,
-          }
+          ...prev,
+          wrongAnswers: prev.wrongAnswers + 1,
+        }
     );
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
@@ -116,4 +116,4 @@ const page = () => {
     </div>
   );
 };
-export default page;
+export default QuizPage;
