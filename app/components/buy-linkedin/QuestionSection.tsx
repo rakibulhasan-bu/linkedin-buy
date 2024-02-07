@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function QuestionSection() {
     const [questionNo, setQuestionNo] = useState(0);
@@ -23,6 +24,13 @@ export default function QuestionSection() {
             setQuestionNo(prev => prev + 1)
             setActiveQuestionValue(null)
         }
+        if (activeQuestionValue === null) {
+            toast.error("Please select one option")
+        }
+    }
+
+    const handleFinalSubmit = () => {
+        toast.success("your submit is permitted")
     }
 
     const handleSubmit = (value: any) => {
@@ -140,7 +148,7 @@ export default function QuestionSection() {
                 <button onClick={previousQuestionHandler} className="text-lg  px-10 font-medium bg-white text-black/80 myShadow rounded py-1.5 hover:bg-primary hover:text-white">Previous</button>
                 {
                     questionNo === 5 ?
-                        <button onClick={nextQuestionHandler} className={`optionButton  px-10 ${(activeQuestionValue !== null) && 'bg-primary text-white'}`}>Submit</button>
+                        <button onClick={handleFinalSubmit} className={`optionButton  px-10 ${(activeQuestionValue !== null) && 'bg-primary text-white'}`}>Submit</button>
                         :
                         <button onClick={nextQuestionHandler} className={`optionButton  px-10 ${(activeQuestionValue !== null) && 'bg-primary text-white'}`}>Next</button>
                 }
