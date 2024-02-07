@@ -31,7 +31,7 @@ const QuizPage = () => {
   };
 
   const nextQuestion = () => {
-    setSelectedAnswerIndex(0);
+    setSelectedAnswerIndex(null);
     setResult((prev) =>
       selectedAnswer
         ? {

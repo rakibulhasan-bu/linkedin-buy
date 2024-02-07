@@ -6,7 +6,7 @@ export default function Navbar() {
             <div className='container mx-auto flex items-center justify-between py-4'>
                 <Link href={'/'}>Buy Sell</Link>
                 <nav>
-                    <Link href={'/quiz'} className="button">Buy LinkedIn</Link>
+                    <Link href={'/buy-linkedin'} className="button">Buy LinkedIn</Link>
                 </nav>
             </div>
         </div>
