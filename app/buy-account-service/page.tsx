@@ -3,9 +3,9 @@ import { Button, Form, Input, Select } from "antd";
 
 export default function page() {
   return (
-    <section className=" w-full flex items-center justify-end">
-      <div className=" w-[60%] bg-white h-[85dvh] flex items-center justify-end px-2">
-        <div className="  h-full px-10">
+    <section className=" w-full lg:flex items-center justify-center lg:justify-end">
+      <div className=" lg:w-[60%] w-full bg-white h-[85dvh] flex items-center justify-center lg:justify-end px-2">
+        <div className="  h-full lg:px-10">
           <h1 className="  text-lg font-semibold my-14">SocialPlug</h1>
           <p>service selection</p>
           <div className=" grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -204,7 +204,7 @@ export default function page() {
           </div>
         </div>
       </div>
-      <div className=" w-[40%] bg-[#007bff]  h-[85dvh]">
+      <div className=" lg:w-[40%] w-full bg-[#007bff]  h-[85dvh]">
         <h1 className=" text-white text-xl font-semibold my-14 pl-10">
           Summery
         </h1>
