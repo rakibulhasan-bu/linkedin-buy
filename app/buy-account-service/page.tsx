@@ -1,188 +1,24 @@
 "use client";
+
 import { Button, Form, Input, Select } from "antd";
+import ServiceSelection from "../components/account-service/ServiceSelection";
 
 export default function page() {
+  const services = [
+    { a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }, { a: 1 }, { a: 1 },
+  ]
   return (
-    <section className=" w-full lg:flex items-center justify-center lg:justify-end">
-      <div className=" lg:w-[60%] w-full bg-white  flex items-center justify-center lg:justify-end px-2 lg:h-screen">
+    <section className="w-full lg:flex">
+      <div className=" lg:w-[70%] w-full bg-white px-2 lg:min-h-screen">
         <div className="  h-full lg:px-10">
           <h1 className="  text-lg font-semibold my-14">SocialPlug</h1>
           <p>service selection</p>
           <div className=" grid grid-cols-1 lg:grid-cols-3 gap-5">
-            <div className=" border p-6 space-y-2 rounded-sm">
-              <h2>Linkdn Share/Reposts</h2>
-              <div>
-                <Select
-                  defaultValue="share/repost"
-                  style={{
-                    width: 200,
-                  }}
-                  options={[
-                    {
-                      options: [
-                        {
-                          label: "50 Share/Repost",
-                          value: "50",
-                        },
-                        {
-                          label: "100 Share/Repost",
-                          value: "100",
-                        },
-                        {
-                          label: "150 Share/Repost",
-                          value: "150",
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              </div>
-            </div>
-            <div className=" border p-6 space-y-2 rounded-sm">
-              <h2>Linkdn Share/Reposts</h2>
-              <div>
-                <Select
-                  defaultValue="share/repost"
-                  style={{
-                    width: 200,
-                  }}
-                  options={[
-                    {
-                      options: [
-                        {
-                          label: "50 Share/Repost",
-                          value: "50",
-                        },
-                        {
-                          label: "100 Share/Repost",
-                          value: "100",
-                        },
-                        {
-                          label: "150 Share/Repost",
-                          value: "150",
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              </div>
-            </div>
-            <div className=" border p-6 space-y-2 rounded-sm">
-              <h2>Linkdn Share/Reposts</h2>
-              <div>
-                <Select
-                  defaultValue="share/repost"
-                  style={{
-                    width: 200,
-                  }}
-                  options={[
-                    {
-                      options: [
-                        {
-                          label: "50 Share/Repost",
-                          value: "50",
-                        },
-                        {
-                          label: "100 Share/Repost",
-                          value: "100",
-                        },
-                        {
-                          label: "150 Share/Repost",
-                          value: "150",
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              </div>
-            </div>
-            <div className=" border p-6 space-y-2 rounded-sm">
-              <h2>Linkdn Share/Reposts</h2>
-              <div>
-                <Select
-                  defaultValue="share/repost"
-                  style={{
-                    width: 200,
-                  }}
-                  options={[
-                    {
-                      options: [
-                        {
-                          label: "50 Share/Repost",
-                          value: "50",
-                        },
-                        {
-                          label: "100 Share/Repost",
-                          value: "100",
-                        },
-                        {
-                          label: "150 Share/Repost",
-                          value: "150",
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              </div>
-            </div>
-            <div className=" border p-6 space-y-2 rounded-sm">
-              <h2>Linkdn Share/Reposts</h2>
-              <div>
-                <Select
-                  defaultValue="share/repost"
-                  style={{
-                    width: 200,
-                  }}
-                  options={[
-                    {
-                      options: [
-                        {
-                          label: "50 Share/Repost",
-                          value: "50",
-                        },
-                        {
-                          label: "100 Share/Repost",
-                          value: "100",
-                        },
-                        {
-                          label: "150 Share/Repost",
-                          value: "150",
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              </div>
-            </div>
-            <div className=" border p-6 space-y-2 rounded-sm">
-              <h2>Linkdn Share/Reposts</h2>
-              <div>
-                <Select
-                  defaultValue="share/repost"
-                  style={{
-                    width: 200,
-                  }}
-                  options={[
-                    {
-                      options: [
-                        {
-                          label: "50 Share/Repost",
-                          value: "50",
-                        },
-                        {
-                          label: "100 Share/Repost",
-                          value: "100",
-                        },
-                        {
-                          label: "150 Share/Repost",
-                          value: "150",
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              </div>
-            </div>
+            {
+              services.map((service: any, index: number) => (
+                <ServiceSelection key={index} />
+              ))
+            }
           </div>
           <div className=" mt-6">
             <Form layout="vertical">
@@ -204,7 +40,7 @@ export default function page() {
           </div>
         </div>
       </div>
-      <div className=" lg:w-[40%] w-full bg-[#007bff]  lg:h-screen py-5">
+      <div className=" lg:w-[30%] w-full bg-gradient-to-br from-blue-700 to-blue-400 lg:min-h-screen pb-12">
         <h1 className=" text-white text-xl font-semibold my-14 pl-10">
           Summery
         </h1>
