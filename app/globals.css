@@ -4,7 +4,7 @@
 
 @layer base {
   .button {
-    @apply px-4 py-1 font-medium text-white bg-primary rounded;
+    @apply px-2 lg:px-4 py-1 font-medium text-white bg-primary rounded;
   }
   .optionButton {
     @apply text-lg font-medium text-black/80 myShadow rounded py-1.5 hover:bg-primary hover:text-white;

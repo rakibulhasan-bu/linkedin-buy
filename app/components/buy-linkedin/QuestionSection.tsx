@@ -62,7 +62,7 @@ export default function QuestionSection() {
     }
 
     return (
-        <div className='max-w-4xl mx-auto py-6 pt-12'>
+        <div className='max-w-4xl mx-auto py-4 lg:py-6 lg:pt-12 px-2 lg:px-0'>
             {/* {questionData.quantity}, {questionData.connection} {activeQuestionValue !== null ? "true" : "false"} , {questionData.accountAge}, {questionData.connectionType} ,{activeQuestionValue} */}
             {
                 questionNo < 6 && (<div className={`${questionNo === 0 && 'w-1/6' || questionNo === 1 && 'w-2/6' || questionNo === 2 && 'w-3/6' || questionNo === 3 && 'w-4/6' || questionNo === 4 && 'w-5/6' || questionNo === 5 && 'w-6/6'} bg-gradient-to-tr from-blue-300 bg-blue-800 h-1.5 rounded-md mb-6`}>
@@ -72,7 +72,7 @@ export default function QuestionSection() {
 
             {
                 questionNo === 0 && (
-                    <div className='p-8 myShadow rounded'>
+                    <div className='p-4 lg:p-8 myShadow rounded'>
                         <h2 className="text-xl font-medium">01. How much accounts do you want to buy? </h2>
                         <div className='grid grid-cols-4 gap-6 pt-6'>
                             <button onClick={() => handleSubmit(100)} className={`optionButton ${activeQuestionValue === 100 && 'bg-primary text-white'}`}>100</button>
@@ -87,7 +87,7 @@ export default function QuestionSection() {
             }
             {
                 questionNo === 1 && (
-                    <div className='p-8 myShadow rounded mt-6'>
+                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
                         <h2 className="text-xl font-medium">02. Required number of connection /friends per accounts?</h2>
                         <div className='grid grid-cols-4 gap-6 pt-6'>
                             <button onClick={() => handleSubmit(10)} className={`optionButton ${activeQuestionValue === 10 && 'bg-primary text-white'}`}>10+</button>
@@ -105,7 +105,7 @@ export default function QuestionSection() {
             }
             {
                 questionNo === 2 && (
-                    <div className='p-8 myShadow rounded mt-6'>
+                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
                         <h2 className="text-xl font-medium">03. Required age of the accounts?</h2>
                         <div className='grid grid-cols-4 gap-6 pt-6'>
                             <button onClick={() => handleSubmit(7)} className={`optionButton ${activeQuestionValue === 7 && 'bg-primary text-white'}`}>0-7 days</button>
@@ -124,20 +124,20 @@ export default function QuestionSection() {
 
             {
                 questionNo === 3 && (
-                    <div className='p-8 myShadow rounded mt-6'>
+                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
                         <h2 className="text-xl font-medium">04. Which connection type do you need?</h2>
                         <div className='grid grid-cols-2 gap-6 pt-6'>
-                            <button onClick={() => handleSubmit('organic')} className={`optionButton ${activeQuestionValue === 'organic' && 'bg-primary text-white'}`}>Organically Grower (Real connection)</button>
-                            <button onClick={() => handleSubmit('manually')} className={`optionButton ${activeQuestionValue === 'manually' && 'bg-primary text-white'}`}>Manually Grower (CSV)</button>
+                            <button onClick={() => handleSubmit('organic')} className={`optionButton ${activeQuestionValue === 'organic' && 'bg-primary text-white'}`}>Organically Growed (Real connection)</button>
+                            <button onClick={() => handleSubmit('manually')} className={`optionButton ${activeQuestionValue === 'manually' && 'bg-primary text-white'}`}>Manually Growed (CSV)</button>
                         </div>
                     </div>
                 )
             }
             {
                 questionNo === 4 && (
-                    <div className='p-8 myShadow rounded mt-6'>
+                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
                         <h2 className="text-xl font-medium">05. Which type Email will be associated with your linkedin accounts?</h2>
-                        <div className='grid grid-cols-4 gap-6 pt-6'>
+                        <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 pt-6'>
                             <button onClick={() => handleSubmit('any')} className={`optionButton ${activeQuestionValue === 'any' && 'bg-primary text-white'}`}>Any email</button>
                             <button onClick={() => handleSubmit('gmail')} className={`optionButton ${activeQuestionValue === 'gmail' && 'bg-primary text-white'}`}>gmail.com</button>
                             <button onClick={() => handleSubmit('yahoo')} className={`optionButton ${activeQuestionValue === 'yahoo' && 'bg-primary text-white'}`}>yahoo.com</button>
@@ -149,7 +149,7 @@ export default function QuestionSection() {
             }
             {
                 questionNo === 5 && (
-                    <div className='p-8 myShadow rounded mt-6'>
+                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
                         <h2 className="text-xl font-medium">06. Which verification type do you need?</h2>
                         <div className='grid grid-cols-2 gap-6 pt-6'>
                             <button onClick={() => handleSubmit('verified')} className={`optionButton ${activeQuestionValue === 'verified' && 'bg-primary text-white'}`}>Verified account</button>
@@ -160,7 +160,7 @@ export default function QuestionSection() {
             }
 
             {questionNo === 6 && (
-                <div className='px-8 py-6 myShadow rounded'>
+                <div className='px-4 lg:px-8 py-4 lg:py-6 myShadow rounded'>
                     <h2 className="text-xl font-medium text-center">Your Submitted Answers</h2>
                     <div className='space-y-2 pt-4'>
                         <div className=''>
