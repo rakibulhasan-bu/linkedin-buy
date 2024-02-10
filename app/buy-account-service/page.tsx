@@ -6,7 +6,7 @@ export default function page() {
     <section className=" w-full flex items-center justify-end">
       <div className=" w-[60%] bg-white h-[85dvh] flex items-center justify-end px-2">
         <div className="  h-full px-10">
-          <h1 className="  text-lg font-semibold my-14 pl-10">SocialPlug</h1>
+          <h1 className="  text-lg font-semibold my-14">SocialPlug</h1>
           <p>service selection</p>
           <div className=" grid grid-cols-1 lg:grid-cols-3 gap-5">
             <div className=" border p-6 space-y-2 rounded-sm">
@@ -187,7 +187,18 @@ export default function page() {
           <div className=" mt-6">
             <Form layout="vertical">
               <Form.Item label="Email">
-                <Input placeholder="input placeholder" />
+                <Input placeholder="Type your email" />
+              </Form.Item>
+              <Form.Item label="Post Link for Shares / Reposts">
+                <Input placeholder="https://www.linkedin.com/posts/gatski/" />
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  style={{ width: "100%", backgroundColor: "#4096ff" }}
+                >
+                  Complete purchase
+                </Button>
               </Form.Item>
             </Form>
           </div>
