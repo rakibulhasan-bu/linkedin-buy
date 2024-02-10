@@ -1,4 +1,5 @@
-import { Select } from "antd";
+"use client";
+import { Button, Form, Input, Select } from "antd";
 
 export default function page() {
   return (
@@ -182,6 +183,13 @@ export default function page() {
                 />
               </div>
             </div>
+          </div>
+          <div className=" mt-6">
+            <Form layout="vertical">
+              <Form.Item label="Email">
+                <Input placeholder="input placeholder" />
+              </Form.Item>
+            </Form>
           </div>
         </div>
       </div>
