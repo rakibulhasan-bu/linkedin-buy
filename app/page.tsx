@@ -10,12 +10,12 @@ export default function Home() {
   return (
     <main className="container mx-auto">
       <Hero />
-      <Step />
+      {/* <Step />
       <Statistics />
       <Pricing />
       <Blog />
       <Testimonial />
-      <Team />
+      <Team /> */}
     </main>
   );
 }
