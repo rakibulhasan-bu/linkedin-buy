@@ -4,7 +4,7 @@ import { Button, Form, Input, Select } from "antd";
 export default function page() {
   return (
     <section className=" w-full lg:flex items-center justify-center lg:justify-end">
-      <div className=" lg:w-[60%] w-full bg-white h-[85dvh] flex items-center justify-center lg:justify-end px-2">
+      <div className=" lg:w-[60%] w-full bg-white  flex items-center justify-center lg:justify-end px-2 lg:h-screen">
         <div className="  h-full lg:px-10">
           <h1 className="  text-lg font-semibold my-14">SocialPlug</h1>
           <p>service selection</p>
@@ -204,7 +204,7 @@ export default function page() {
           </div>
         </div>
       </div>
-      <div className=" lg:w-[40%] w-full bg-[#007bff]  h-[85dvh]">
+      <div className=" lg:w-[40%] w-full bg-[#007bff]  lg:h-screen py-5">
         <h1 className=" text-white text-xl font-semibold my-14 pl-10">
           Summery
         </h1>
