@@ -391,13 +391,13 @@ export default function ServicesPage() {
               {
                 activeOrder && (
                   <div className=''>
-                    <ol className="list-decimal text-sm lg:px-10 py-2">
-                      <p className="text-center text-base text-red-500  pb-1 underline underline-offset-1">Please read carefully before confirming order</p>
+                    <ol className="list-decimal lg:px-10 py-2">
+                      <p className="text-center font-medium text-red-500  pb-1 underline underline-offset-2">Please read carefully before confirming order</p>
                       <li>Usually our work starts within 10-12 hours after an order confirmation.  But it may take up to 24-30 hours maximum.</li>
                       <li>In the case of purchasing connections, connection requests must be accepted within 24 hours of their receipt. Otherwise BuyLinkedin365 authorities may temporarily/permanently stop their services in your case.</li>
                       <li>BuyLinkedin365 authorities will not be responsible for any link becoming unavailable in the middle of work.  But if any such problem is faced at the beginning of the work, you will be informed and refund if necessary.</li>
                     </ol>
-                    <h2 className="text-lg lg:text-xl font-medium text-center pt-4 text-gray-800">Give Your  Email and any of your social media account for Confirm purchase</h2>
+                    <h2 className="text-lg lg:text-xl font-medium text-center pt-4 text-gray-800">Give Your  Email and anyone of your social media account for Confirm purchase</h2>
                     <Form.Item name='email' label="Email" rules={[
                       { required: true, message: 'Please input your email!' },
                       {

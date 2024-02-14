@@ -9,6 +9,15 @@ export function AppWrapper({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const [zeroQuestionData, setZeroQuestionData] = useState({
+        location: "",
+        accountAge: "",
+        prize: 0,
+        totalPrize: 0,
+        emailType: "",
+        accountVerification: ""
+    })
+
     const [questionData, setQuestionData] = useState({
         quantity: 0,
         connection: 0,
@@ -19,6 +28,7 @@ export function AppWrapper({
     })
 
     const contextValue = {
+        zeroQuestionData, setZeroQuestionData,
         questionData, setQuestionData
     }
     return (
