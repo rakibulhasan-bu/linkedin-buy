@@ -1,19 +1,16 @@
 'use client'
 
+import { useAppContext } from "@/context";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 export default function ZeroConnectionQuestion() {
+    const { questionData, setQuestionData } = useAppContext()
+    const router = useRouter()
     const [questionNo, setQuestionNo] = useState(0);
     const [activeQuestionValue, setActiveQuestionValue] = useState<string | number | null>(null);
-    const [questionData, setQuestionData] = useState({
-        quantity: 0,
-        connection: 0,
-        accountAge: 0,
-        connectionType: "",
-        emailType: "",
-        accountVerification: ""
-    })
+
 
     const previousQuestionHandler = () => {
         if (questionNo > 0) {
@@ -35,6 +32,7 @@ export default function ZeroConnectionQuestion() {
         if (activeQuestionValue !== null) {
             setQuestionNo(prev => prev + 1)
             toast.success("your submit is permitted")
+            router.push('/order')
         }
         toast.error("Please select one option")
     }
@@ -157,49 +155,6 @@ export default function ZeroConnectionQuestion() {
                         </div>
                     </div>
                 )
-            }
-
-            {questionNo === 6 && (
-                <div className='px-4 lg:px-8 py-4 lg:py-6 myShadow rounded'>
-                    <h2 className="text-xl font-medium text-center">Your Submitted Answers</h2>
-                    <div className='space-y-2 pt-4'>
-                        <div className=''>
-                            <h2 className="text-xl">01. How much accounts do you want to buy? </h2>
-                            <h2 className="text-xl font-medium">Ans: {questionData.quantity}</h2>
-                        </div>
-                        <div className=''>
-                            <h2 className="text-xl">02. Required number of connection /friends per accounts?</h2>
-                            <h2 className="text-xl font-medium">Ans: {questionData.connection}</h2>
-                        </div>
-                        <div className=''>
-                            <h2 className="text-xl">03. Required age of the accounts?</h2>
-                            <h2 className="text-xl font-medium">Ans: {questionData.accountAge}</h2>
-                        </div>
-                        <div className=''>
-                            <h2 className="text-xl">04. Which connection type do you need?</h2>
-                            <h2 className="text-xl font-medium">Ans: {questionData.connectionType}</h2>
-                        </div>
-                        <div className=''>
-                            <h2 className="text-xl">05. Which type Email will be associated with your linkedin accounts?</h2>
-                            <h2 className="text-xl font-medium">Ans: {questionData.emailType}</h2>
-                        </div>
-                        <div className=''>
-                            <h2 className="text-xl">06. Which verification type do you need?</h2>
-                            <h2 className="text-xl font-medium">Ans: {questionData.accountVerification}</h2>
-                        </div>
-                    </div>
-                    <h2 className="text-xl font-medium text-center pt-4 text-primary">Give Your  Email or WhatsApp or messenger link or Skype</h2>
-                    <div className='grid grid-cols-2 gap-6 pt-4'>
-                        <input type="text" placeholder="Your Email account here" className="border border-gray-300 rounded py-1 px-4" />
-                        <input type="text" placeholder="Your WhatsApp number here" className="border border-gray-300 rounded py-1 px-4" />
-                        <input type="text" placeholder="Your messenger account here" className="border border-gray-300 rounded py-1 px-4" />
-                        <input type="text" placeholder="Your Skype account here" className="border border-gray-300 rounded py-1 px-4" />
-                    </div>
-                    <div className='pt-4 flex items-center justify-center'>
-                        <button className="bg-green-500 hover:bg-green-600 text-white font-medium rounded px-6 py-1.5">Order Now</button>
-                    </div>
-                </div>
-            )
             }
 
             {
