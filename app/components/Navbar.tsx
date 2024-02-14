@@ -10,9 +10,7 @@ export default function Navbar() {
                     {/* <span className="text-xl font-semibold text-primary">Buy Linkedin Account</span> */}
                 </Link>
                 <nav className="flex items-center gap-4">
-
-                    <Link href={'/buy-linkedin-account'} className="button text-sm lg:text-base">Buy LinkedIn Acc</Link>
-                    <Link href={'/buy-account-service'} className="button text-sm lg:text-base">Buy Account Service</Link>
+                    <Link href={'/explore-our-services'} className="button">Explore Our Services</Link>
                 </nav>
             </div>
         </div>

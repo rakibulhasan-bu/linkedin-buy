@@ -10,8 +10,7 @@ export default function Hero() {
                 </h1>
                 <p className="mb-3 lg:mb-6 lg:text-lg text-justify max-w-xl leading-relaxed">Welcome to <span className="text-blue-500">buylinkedinacc.com</span>, where professional success meets affordability! Whether you need a new account or want to boost your connections, reactions, comments, or company page follows, we have got you covered at the best prices. Our services ensure you will stand out professionally without any hassle. Join countless satisfied customers who have chosen us for their LinkedIn needs.</p>
                 <div className="flex justify-center gap-6">
-                    <Link href={'/buy-linkedin-account'} className="button">Buy Linkedin Acc</Link>
-                    <Link href={'/buy-account-service'} className="button">Buy Account Service</Link>
+                    <Link href={'/explore-our-services'} className="button">Explore Our Services</Link>
                 </div>
             </div>
 
