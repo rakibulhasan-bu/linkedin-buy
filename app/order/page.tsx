@@ -6,7 +6,7 @@ export default function OrderPage() {
     const { questionData } = useAppContext()
     return (
         <div className='container mx-auto min-h-screen py-6 px-2 lg:px-0'>
-            <h2 className="text-center text-xl lg:text-2xl font-medium">Please Put your Email / Whatsapp number / Skype / Messenger and Press Order Now !</h2>
+            <h2 className="text-center text-xl lg:text-2xl font-medium">Seize the Opportunity: Order Now to Skyrocket Your LinkedIn Influence!</h2>
 
             <div className='px-4 lg:px-8 py-4 lg:py-6 myShadow rounded my-8'>
                 <h2 className="text-xl font-medium text-center">Your Submitted Answers</h2>
@@ -37,7 +37,7 @@ export default function OrderPage() {
                     </div>
                 </div>
             </div>
-            <h2 className="text-xl font-medium text-center pt-4 text-gray-900">Give Your  Email or WhatsApp or messenger link or Skype</h2>
+            <h2 className="text-xl font-medium text-center pt-4 text-gray-900">Give Your  Email or WhatsApp or Telegram link or Skype</h2>
             <div className='grid grid-cols-2 gap-6 pt-4'>
                 <input type="text" placeholder="Your Email account here" className="border border-gray-300 rounded py-1 px-4" />
                 <input type="text" placeholder="Your WhatsApp number here" className="border border-gray-300 rounded py-1 px-4" />

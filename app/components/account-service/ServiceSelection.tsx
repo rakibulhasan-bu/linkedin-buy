@@ -36,7 +36,7 @@ export default function ServiceSelection({ handleChangeServices, servicesOptions
             handleChangeServices(0, name)
         }
     }
-    console.log("object");
+
     return (
         <div onClick={() => handleSelect(servicesOptions?.name)} className={`relative font-medium border p-6 space-y-2 rounded cursor-pointer ${select && "border-blue-500"}`}>
 

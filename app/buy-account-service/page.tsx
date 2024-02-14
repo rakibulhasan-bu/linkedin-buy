@@ -2,7 +2,7 @@
 
 import { Button, Form, Input, Select } from "antd";
 import ServiceSelection, { TServicesOptions } from "../components/account-service/ServiceSelection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "antd/es/form/Form";
 
@@ -16,6 +16,8 @@ export default function ServicesPage() {
   const likesPrize = 0.03;
 
   const [form] = useForm();
+  // const [filledFields, setFilledFields] = useState<string[]>([]);
+  const [activeOrder, setActiveOrder] = useState(false);
   const [services, setServices] = useState({
     share: 0,
     connections: 0,
@@ -29,7 +31,7 @@ export default function ServicesPage() {
     {
       title: "Linkedin Share / Reposts",
       name: "share",
-      amount: "6.50$ - 70.00$",
+      amount: "2.00$ - 32.00$",
       options: [
         {
           label: "Amount Of Shares/Reposts",
@@ -60,7 +62,7 @@ export default function ServicesPage() {
     {
       title: "Linkedin Connections",
       name: "connections",
-      amount: "5.00$ - 350.00$",
+      amount: "2.50$ - 250.00$",
       options: [
         {
           label: "Amount Of Connections",
@@ -99,7 +101,7 @@ export default function ServicesPage() {
     {
       title: "Linkedin Followers",
       name: "followers",
-      amount: "3.50$ - 2600.00$",
+      amount: "4.50$ - 450.00$",
       options: [
         {
           label: "Amount Of Followers",
@@ -150,7 +152,7 @@ export default function ServicesPage() {
     {
       title: "Linkedin Random Comments",
       name: "comments",
-      amount: "9.00$ - 220.00$",
+      amount: "0.25$ - 7.50$",
       options: [
         {
           label: "Amount Of Random Comments",
@@ -186,7 +188,7 @@ export default function ServicesPage() {
     {
       title: "Linkedin Reactions",
       name: "reactions",
-      amount: "7.00$ - 90.00$",
+      amount: "1.75$ - 28.00$",
       options: [
         {
           label: "Amount Of Reactions",
@@ -218,7 +220,7 @@ export default function ServicesPage() {
     {
       title: "Linkedin Likes",
       name: "likes",
-      amount: "7.00$ - 520.00$",
+      amount: "1.50$ - 150.00$",
       options: [
         {
           label: "Amount Of Likes",
@@ -280,10 +282,18 @@ export default function ServicesPage() {
     }
   };
 
+  useEffect(() => {
+    if (services.share > 0 || services.connections > 0 || services.followers > 0 || services.reactions > 0 || services.comments > 0 || services.likes > 0) {
+      setActiveOrder(true)
+    } else {
+      setActiveOrder(false)
+    }
+  }, [services.comments, services.connections, services.followers, services.likes, services.reactions, services.share])
+
   return (
     <section className="w-full lg:flex">
 
-      <div className="lg:w-[70%] w-full bg-white px-2 lg:min-h-screen">
+      <div className="lg:w-[70%] w-full bg-white px-4 lg:px-0 lg:min-h-screen">
         <div className="h-full lg:px-10">
           <h1 className="text-lg font-semibold py-6">Buy Linkedin services</h1>
 
@@ -299,16 +309,9 @@ export default function ServicesPage() {
             <Form
               form={form}
               onFinish={onFinish}
-              onFinishFailed={onFinishFailed} layout="vertical">
-              <Form.Item name='email' label="Email" rules={[
-                { required: true, message: 'Please input your email!' },
-                {
-                  type: 'email',
-                  message: 'This is not a email formate!',
-                },
-              ]}>
-                <Input placeholder="Type your email" />
-              </Form.Item>
+              onFinishFailed={onFinishFailed}
+              layout="vertical">
+
               {
                 services.share > 0 &&
                 <Form.Item name='share' label="Post Link for Shares / Reposts"
@@ -385,12 +388,63 @@ export default function ServicesPage() {
                 </Form.Item>
               }
 
+              {
+                activeOrder && (
+                  <div className=''>
+                    <ol className="list-decimal text-sm lg:px-10 py-2">
+                      <p className="text-center text-base text-red-500  pb-1 underline underline-offset-1">Please read carefully before confirming order</p>
+                      <li>Usually our work starts within 10-12 hours after an order confirmation.  But it may take up to 24-30 hours maximum.</li>
+                      <li>In the case of purchasing connections, connection requests must be accepted within 24 hours of their receipt. Otherwise BuyLinkedin365 authorities may temporarily/permanently stop their services in your case.</li>
+                      <li>BuyLinkedin365 authorities will not be responsible for any link becoming unavailable in the middle of work.  But if any such problem is faced at the beginning of the work, you will be informed and refund if necessary.</li>
+                    </ol>
+                    <h2 className="text-lg lg:text-xl font-medium text-center pt-4 text-gray-800">Give Your  Email and any of your social media account for Confirm purchase</h2>
+                    <Form.Item name='email' label="Email" rules={[
+                      { required: true, message: 'Please input your email!' },
+                      {
+                        type: 'email',
+                        message: 'This is not a email formate!',
+                      },
+                    ]}>
+                      <Input placeholder="Type your email" />
+                    </Form.Item>
+                    <Form.Item name='whatsApp' label="WhatsApp (Optional)" rules={[
+                      // { required: true, message: 'Please input your whatsApp account!' },
+                      {
+                        type: 'string',
+                        message: 'This is not a whatsApp account formate!',
+                      },
+                    ]}>
+                      <Input placeholder="Type your whatsApp" />
+                    </Form.Item>
+                    <Form.Item name='telegram' label="Telegram (Optional)" rules={[
+                      // { required: true, message: 'Please input your telegram!' },
+                      {
+                        type: 'url',
+                        message: 'This is not a telegram url link formate!',
+                      },
+                    ]}>
+                      <Input placeholder="Type your telegram" />
+                    </Form.Item>
+                    <Form.Item name='skype' label="Skype (Optional)" rules={[
+                      // { required: true, message: 'Please input your Skype!' },
+                      {
+                        type: 'url',
+                        message: 'This is not a Skype account formate!',
+                      },
+                    ]}>
+                      <Input placeholder="Type your Skype url link" />
+                    </Form.Item>
+                  </div>
+                )
+              }
+
+
               <Form.Item>
                 <Button
                   type="primary"
                   className="w-full bg-blue-600 !hover:bg-blue-700"
                   htmlType="submit">
-                  Complete purchase
+                  Confirm purchase
                 </Button>
               </Form.Item>
             </Form>
@@ -400,7 +454,7 @@ export default function ServicesPage() {
 
       {/* this is right div  */}
       <div className=" lg:w-[30%] w-full bg-gradient-to-br from-blue-700 to-blue-400 lg:min-h-screen pb-12">
-        <div className='w-full lg:w-5/6 mx-auto space-y-4'>
+        <div className='w-full p-4 lg:p-0 lg:w-5/6 mx-auto space-y-4'>
           <h1 className=" text-white text-xl font-semibold mt-14">
             Summery
           </h1>
@@ -487,9 +541,6 @@ export default function ServicesPage() {
 
 
         </div>
-
-
-
       </div>
     </section>
   );
