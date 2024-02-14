@@ -4,13 +4,13 @@ import Link from "next/link";
 export default function Footer() {
     return (
         <footer className="container py-4 mx-auto text-gray-600 text-center  flex items-center sm:flex-row flex-col">
-            <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+            <p className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
                 <Link className="flex items-center gap-2" href={'/'}>
                     <Image width={48} height={48} className="w-12 h-12 object-cover" src="https://res.cloudinary.com/dwx2jd8b1/image/upload/v1707328885/Website-assets/linkedin-buy/logo_koap5s.png" alt="" />
                     <span className="text-lg font-semibold text-primary">Buy Linkedin Account</span>
                 </Link>
-            </a>
-            <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© Buy Linkedin Account —
+            </p>
+            <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4"><Link href={'/dashboard'}>©</Link> Buy Linkedin Account —
                 <Link href="/" className="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">buylinkedinacc@gmail.com</Link>
             </p>
             <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
