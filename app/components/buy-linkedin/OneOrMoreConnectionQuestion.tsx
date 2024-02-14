@@ -9,6 +9,7 @@ export default function OneOrMoreConnectionQuestion() {
     const { questionData, setQuestionData } = useAppContext();
     const router = useRouter()
     const [questionNo, setQuestionNo] = useState(0);
+    const [givenAmount, setGivenAmount] = useState(0);
     const [activeQuestionValue, setActiveQuestionValue] = useState<string | number | null>(null);
 
     const previousQuestionHandler = () => {
@@ -30,32 +31,42 @@ export default function OneOrMoreConnectionQuestion() {
     const handleFinalSubmit = () => {
         if (activeQuestionValue !== null) {
             setQuestionNo(prev => prev + 1)
-            router.push('/order')
+            router.push('/order/one-more-connection')
             toast.success("your submit is permitted")
+        } else {
+            toast.error("Please select one option")
         }
-        toast.error("Please select one option")
     }
 
-    const handleSubmit = (value: any) => {
+    const handleSubmit = (value: any, days?: string) => {
         if (questionNo === 0) {
-            setQuestionData({ ...questionData, quantity: value })
-        }
-        if (questionNo === 1) {
-            setQuestionData({ ...questionData, connection: value })
-        }
-        if (questionNo === 2) {
-            setQuestionData({ ...questionData, accountAge: value })
-        }
-        if (questionNo === 3) {
             setQuestionData({ ...questionData, connectionType: value })
         }
+        if (questionNo === 1) {
+            setQuestionData({ ...questionData, location: value })
+        }
+        if (questionNo === 2) {
+            setQuestionData({ ...questionData, connection: value })
+        }
+        if (questionNo === 3) {
+            setQuestionData({ ...questionData, prize: value, accountAge: days })
+        }
         if (questionNo === 4) {
-            setQuestionData({ ...questionData, emailType: value })
+            if (value === "check") {
+                const checkPrize = givenAmount * questionData.prize
+                setQuestionData({ ...questionData, accountAmount: givenAmount, totalPrize: checkPrize.toFixed(2) })
+            }
         }
-        if (questionNo === 5) {
-            setQuestionData({ ...questionData, accountVerification: value })
-        }
+
         setActiveQuestionValue(value)
+    }
+
+    const connectionPrize = {
+        sixMonths: questionData?.connection === 9 ? 4 : 0 || questionData?.connection === 10 ? 5 : 0 || questionData?.connection === 50 ? 8 : 0 || questionData?.connection === 100 ? 10 : 0,
+        oneYear: questionData?.connection === 9 ? 6 : 0 || questionData?.connection === 10 ? 7 : 0 || questionData?.connection === 50 ? 10 : 0 || questionData?.connection === 100 ? 14 : 0 || questionData?.connection === 200 ? 15 : 0 || questionData?.connection === 300 ? 25 : 0 || questionData?.connection === 500 ? 40 : 0,
+        fourYear: questionData?.connection === 9 ? 10 : 0 || questionData?.connection === 10 ? 11 : 0 || questionData?.connection === 50 ? 16 : 0 || questionData?.connection === 100 ? 23 : 0 || questionData?.connection === 200 ? 28 : 0 || questionData?.connection === 300 ? 34 : 0 || questionData?.connection === 500 ? 50 : 0 || questionData?.connection === 1000 ? 90 : 0 || questionData?.connection === 2000 ? 160 : 0,
+        tenYear: questionData?.connection === 9 ? 11 : 0 || questionData?.connection === 10 ? 12 : 0 || questionData?.connection === 50 ? 20 : 0 || questionData?.connection === 100 ? 27 : 0 || questionData?.connection === 200 ? 35 : 0 || questionData?.connection === 300 ? 43 : 0 || questionData?.connection === 500 ? 55 : 0 || questionData?.connection === 1000 ? 100 : 0 || questionData?.connection === 2000 ? 185 : 0,
+        moreThanTenYear: questionData?.connection === 9 ? 11.5 : 0 || questionData?.connection === 10 ? 13 : 0 || questionData?.connection === 50 ? 21 : 0 || questionData?.connection === 100 ? 28 : 0 || questionData?.connection === 200 ? 37 : 0 || questionData?.connection === 300 ? 45 : 0 || questionData?.connection === 500 ? 60 : 0 || questionData?.connection === 1000 ? 110 : 0 || questionData?.connection === 2000 ? 200 : 0,
     }
 
     return (
@@ -69,60 +80,8 @@ export default function OneOrMoreConnectionQuestion() {
 
             {
                 questionNo === 0 && (
-                    <div className='p-4 lg:p-8 myShadow rounded'>
-                        <h2 className="text-xl font-medium">01. How much accounts do you want to buy? </h2>
-                        <div className='grid grid-cols-4 gap-6 pt-6'>
-                            <button onClick={() => handleSubmit(100)} className={`optionButton ${activeQuestionValue === 100 && 'bg-primary text-white'}`}>100</button>
-                            <button onClick={() => handleSubmit(200)} className={`optionButton ${activeQuestionValue === 200 && 'bg-primary text-white'}`}>200</button>
-                            <button onClick={() => handleSubmit(300)} className={`optionButton ${activeQuestionValue === 300 && 'bg-primary text-white'}`}>300</button>
-                            <button onClick={() => handleSubmit(400)} className={`optionButton ${activeQuestionValue === 400 && 'bg-primary text-white'}`}>400</button>
-                            <button onClick={() => handleSubmit(500)} className={`optionButton ${activeQuestionValue === 500 && 'bg-primary text-white'}`}>500</button>
-                            <button onClick={() => handleSubmit(600)} className={`optionButton ${activeQuestionValue === 600 && 'bg-primary text-white'}`}>600</button>
-                        </div>
-                    </div>
-                )
-            }
-            {
-                questionNo === 1 && (
                     <div className='p-4 lg:p-8 myShadow rounded mt-6'>
-                        <h2 className="text-xl font-medium">02. Required number of connection /friends per accounts?</h2>
-                        <div className='grid grid-cols-4 gap-6 pt-6'>
-                            <button onClick={() => handleSubmit(10)} className={`optionButton ${activeQuestionValue === 10 && 'bg-primary text-white'}`}>10+</button>
-                            <button onClick={() => handleSubmit(20)} className={`optionButton ${activeQuestionValue === 20 && 'bg-primary text-white'}`}>20+</button>
-                            <button onClick={() => handleSubmit(30)} className={`optionButton ${activeQuestionValue === 30 && 'bg-primary text-white'}`}>30+</button>
-                            <button onClick={() => handleSubmit(50)} className={`optionButton ${activeQuestionValue === 50 && 'bg-primary text-white'}`}>50+</button>
-                            <button onClick={() => handleSubmit(100)} className={`optionButton ${activeQuestionValue === 100 && 'bg-primary text-white'}`}>100+</button>
-                            <button onClick={() => handleSubmit(200)} className={`optionButton ${activeQuestionValue === 200 && 'bg-primary text-white'}`}>200+</button>
-                            <button onClick={() => handleSubmit(300)} className={`optionButton ${activeQuestionValue === 300 && 'bg-primary text-white'}`}>300+</button>
-                            <button onClick={() => handleSubmit(500)} className={`optionButton ${activeQuestionValue === 500 && 'bg-primary text-white'}`}>500+</button>
-                            <button onClick={() => handleSubmit(1000)} className={`optionButton ${activeQuestionValue === 1000 && 'bg-primary text-white'}`}>1000+</button>
-                        </div>
-                    </div>
-                )
-            }
-            {
-                questionNo === 2 && (
-                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
-                        <h2 className="text-xl font-medium">03. Required age of the accounts?</h2>
-                        <div className='grid grid-cols-4 gap-6 pt-6'>
-                            <button onClick={() => handleSubmit(7)} className={`optionButton ${activeQuestionValue === 7 && 'bg-primary text-white'}`}>0-7 days</button>
-                            <button onClick={() => handleSubmit(15)} className={`optionButton ${activeQuestionValue === 15 && 'bg-primary text-white'}`}>7-15 days</button>
-                            <button onClick={() => handleSubmit(30)} className={`optionButton ${activeQuestionValue === 30 && 'bg-primary text-white'}`}>16-30 days</button>
-                            <button onClick={() => handleSubmit(90)} className={`optionButton ${activeQuestionValue === 90 && 'bg-primary text-white'}`}>1-3 month</button>
-                            <button onClick={() => handleSubmit(180)} className={`optionButton ${activeQuestionValue === 180 && 'bg-primary text-white'}`}>3-6 month</button>
-                            <button onClick={() => handleSubmit(360)} className={`optionButton ${activeQuestionValue === 360 && 'bg-primary text-white'}`}>6-12 month</button>
-                            <button onClick={() => handleSubmit(1460)} className={`optionButton ${activeQuestionValue === 1460 && 'bg-primary text-white'}`}>1-4 year</button>
-                            <button onClick={() => handleSubmit(3600)} className={`optionButton ${activeQuestionValue === 3600 && 'bg-primary text-white'}`}>5-10 year</button>
-                            <button onClick={() => handleSubmit(4000)} className={`optionButton ${activeQuestionValue === 4000 && 'bg-primary text-white'}`}>10 year+</button>
-                        </div>
-                    </div>
-                )
-            }
-
-            {
-                questionNo === 3 && (
-                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
-                        <h2 className="text-xl font-medium">04. Which connection type do you need?</h2>
+                        <h2 className="text-xl font-medium">01. Which connection type do you need?</h2>
                         <div className='grid grid-cols-2 gap-6 pt-6'>
                             <button onClick={() => handleSubmit('organic')} className={`optionButton ${activeQuestionValue === 'organic' && 'bg-primary text-white'}`}>Organically Growed (Real connection)</button>
                             <button onClick={() => handleSubmit('manually')} className={`optionButton ${activeQuestionValue === 'manually' && 'bg-primary text-white'}`}>Manually Growed (CSV)</button>
@@ -131,37 +90,95 @@ export default function OneOrMoreConnectionQuestion() {
                 )
             }
             {
-                questionNo === 4 && (
-                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
-                        <h2 className="text-xl font-medium">05. Which type Email will be associated with your linkedin accounts?</h2>
-                        <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 pt-6'>
-                            <button onClick={() => handleSubmit('any')} className={`optionButton ${activeQuestionValue === 'any' && 'bg-primary text-white'}`}>Any email</button>
-                            <button onClick={() => handleSubmit('gmail')} className={`optionButton ${activeQuestionValue === 'gmail' && 'bg-primary text-white'}`}>gmail.com</button>
-                            <button onClick={() => handleSubmit('yahoo')} className={`optionButton ${activeQuestionValue === 'yahoo' && 'bg-primary text-white'}`}>yahoo.com</button>
-                            <button onClick={() => handleSubmit('outlook')} className={`optionButton ${activeQuestionValue === 'outlook' && 'bg-primary text-white'}`}>outlook.com</button>
-                            <button onClick={() => handleSubmit("mail")} className={`optionButton ${activeQuestionValue === "mail" && 'bg-primary text-white'}`}>mail.com</button>
+                questionNo === 1 && (
+                    <div className='p-4 lg:p-8 myShadow rounded'>
+                        <h2 className="text-xl font-medium">02. What will be the location of the account that you want to buy? </h2>
+                        <div className='grid grid-cols-4 gap-6 pt-6'>
+                            <button onClick={() => handleSubmit("any")} className={`optionButton ${activeQuestionValue === "any" && 'bg-primary text-white'}`}>Any Location</button>
+                            <button onClick={() => handleSubmit("us")} className={`optionButton ${activeQuestionValue === "us" && 'bg-primary text-white'}`}>United States</button>
+                            <button onClick={() => handleSubmit("uk")} className={`optionButton ${activeQuestionValue === "uk" && 'bg-primary text-white'}`}>United Kingdom</button>
+                            <button onClick={() => handleSubmit("france")} className={`optionButton ${activeQuestionValue === "france" && 'bg-primary text-white'}`}>France</button>
+                            <button onClick={() => handleSubmit("spain")} className={`optionButton ${activeQuestionValue === "spain" && 'bg-primary text-white'}`}>Spain</button>
+                            <button onClick={() => handleSubmit("india")} className={`optionButton ${activeQuestionValue === "india" && 'bg-primary text-white'}`}>India</button>
                         </div>
                     </div>
                 )
             }
             {
-                questionNo === 5 && (
+                questionNo === 2 && (
                     <div className='p-4 lg:p-8 myShadow rounded mt-6'>
-                        <h2 className="text-xl font-medium">06. Which verification type do you need?</h2>
-                        <div className='grid grid-cols-2 gap-6 pt-6'>
-                            <button onClick={() => handleSubmit('verified')} className={`optionButton ${activeQuestionValue === 'verified' && 'bg-primary text-white'}`}>Verified account</button>
-                            <button onClick={() => handleSubmit('non-verified')} className={`optionButton ${activeQuestionValue === 'non-verified' && 'bg-primary text-white'}`}>Non verified account</button>
+                        <h2 className="text-xl font-medium">03. What is the number of connections / friends of the accounts you want to buy?</h2>
+                        <div className='grid grid-cols-4 gap-6 pt-6'>
+                            <button onClick={() => handleSubmit(9)} className={`optionButton ${activeQuestionValue === 9 && 'bg-primary text-white'}`}>1 to 9</button>
+                            <button onClick={() => handleSubmit(10)} className={`optionButton ${activeQuestionValue === 10 && 'bg-primary text-white'}`}>10+</button>
+                            <button onClick={() => handleSubmit(50)} className={`optionButton ${activeQuestionValue === 50 && 'bg-primary text-white'}`}>50+</button>
+                            <button onClick={() => handleSubmit(100)} className={`optionButton ${activeQuestionValue === 100 && 'bg-primary text-white'}`}>100+</button>
+                            <button onClick={() => handleSubmit(200)} className={`optionButton ${activeQuestionValue === 200 && 'bg-primary text-white'}`}>200+</button>
+                            <button onClick={() => handleSubmit(300)} className={`optionButton ${activeQuestionValue === 300 && 'bg-primary text-white'}`}>300+</button>
+                            <button onClick={() => handleSubmit(500)} className={`optionButton ${activeQuestionValue === 500 && 'bg-primary text-white'}`}>500+</button>
+                            <button onClick={() => handleSubmit(1000)} className={`optionButton ${activeQuestionValue === 1000 && 'bg-primary text-white'}`}>1000+</button>
+                            <button onClick={() => handleSubmit(2000)} className={`optionButton ${activeQuestionValue === 2000 && 'bg-primary text-white'}`}>2000+</button>
                         </div>
                     </div>
                 )
             }
 
             {
-                questionNo < 6 &&
+                questionNo === 3 && (
+                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
+                        <h2 className="text-xl font-medium">04. Age of the account you want to buy?</h2>
+                        <div className='grid grid-cols-2 gap-6 pt-6'>
+                            {
+                                questionData.connection < 200 &&
+                                <button onClick={() => handleSubmit(connectionPrize.sixMonths, "3-6 month")} className={`optionButtonPrize group ${activeQuestionValue === connectionPrize.sixMonths && 'bg-primary text-white'}`}>
+                                    <span>3-6 month</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === connectionPrize.sixMonths && 'text-white/50'}`}>{connectionPrize.sixMonths} $ per Account</span>
+                                </button>
+                            }
+                            {
+                                questionData.connection < 1000 &&
+                                <button onClick={() => handleSubmit(connectionPrize.oneYear, "6-12 month")} className={`optionButtonPrize group ${activeQuestionValue === connectionPrize.oneYear && 'bg-primary text-white'}`}>
+                                    <span>6-12 month</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === connectionPrize.oneYear && 'text-white/50'}`}>{connectionPrize.oneYear} $ per Account</span>
+                                </button>
+                            }
+                            <button onClick={() => handleSubmit(connectionPrize.fourYear, "1-4 year")} className={`optionButtonPrize group ${activeQuestionValue === connectionPrize.fourYear && 'bg-primary text-white'}`}>
+                                <span>1-4 year</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === connectionPrize.fourYear && 'text-white/50'}`}>{connectionPrize.fourYear} $ per Account</span>
+                            </button>
+                            <button onClick={() => handleSubmit(connectionPrize.tenYear, "5-10 year")} className={`optionButtonPrize group ${activeQuestionValue === connectionPrize.tenYear && 'bg-primary text-white'}`}>
+                                <span>5-10 year</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === connectionPrize.tenYear && 'text-white/50'}`}>{connectionPrize.tenYear} $ per Account</span>
+                            </button>
+                            <button onClick={() => handleSubmit(connectionPrize.moreThanTenYear, "10 year+")} className={`optionButtonPrize group ${activeQuestionValue === connectionPrize.moreThanTenYear && 'bg-primary text-white'}`}>
+                                <span>10 year+</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === connectionPrize.moreThanTenYear && 'text-white/50'}`}>{connectionPrize.moreThanTenYear} $ per Account</span>
+                            </button>
+                        </div>
+                    </div>
+                )
+            }
+
+            {
+                questionNo === 4 && (
+                    <div className='p-4 lg:p-8 myShadow rounded mt-6'>
+                        <h2 className="text-xl font-medium">04. How much account do you want to buy?</h2>
+                        <div className='grid grid-cols-2 gap-6 pt-6'>
+                            <input value={givenAmount} min={0} onChange={(e) => setGivenAmount(parseInt(e.target.value))} placeholder="Enter account number" type="number" className="px-4 border-2 rounded border-gray-300" />
+                            <button onClick={() => handleSubmit("check")} disabled={givenAmount <= 0} className={`optionButton disabled:bg-gray-200 disabled:text-gray-400 ${givenAmount > 0 && 'bg-primary text-white'}`}>Check Prize</button>
+                        </div>
+                        {
+                            questionData.totalPrize > 0 &&
+                            <div className='pt-4 px-4 text-lg font-medium text-center'>
+                                For {questionData.accountAge} age {questionData.accountAmount} account total prize is <span className="text-blue-700">{questionData.totalPrize} $</span>
+                            </div>
+                        }
+                    </div>
+                )
+            }
+
+
+            {
+                questionNo < 5 &&
                 <div className='flex items-center justify-between my-6'>
                     <button onClick={previousQuestionHandler} className="text-lg  px-10 font-medium bg-white text-black/80 myShadow rounded py-1.5 hover:bg-primary hover:text-white">Previous</button>
                     {
-                        questionNo === 5 ?
+                        questionNo === 4 ?
                             <button onClick={handleFinalSubmit} className={`optionButton  px-10 ${(activeQuestionValue !== null) && 'bg-primary text-white'}`}>Submit</button>
                             :
                             <button onClick={nextQuestionHandler} className={`optionButton  px-10 ${(activeQuestionValue !== null) && 'bg-primary text-white'}`}>Next</button>

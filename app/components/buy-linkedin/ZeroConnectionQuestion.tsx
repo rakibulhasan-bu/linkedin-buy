@@ -44,7 +44,7 @@ export default function ZeroConnectionQuestion() {
         if (activeQuestionValue !== null) {
             setQuestionNo(prev => prev + 1)
             toast.success("your checkout is successful.")
-            router.push('/order')
+            router.push('/order/zero-connection')
         } else {
             toast.error("Please select one option")
         }
@@ -60,7 +60,7 @@ export default function ZeroConnectionQuestion() {
         if (questionNo === 2) {
             if (value === "check") {
                 const checkPrize = givenAmount * zeroQuestionData.prize
-                setZeroQuestionData({ ...zeroQuestionData, totalPrize: checkPrize.toFixed(2) })
+                setZeroQuestionData({ ...zeroQuestionData, accountAmount: givenAmount, totalPrize: checkPrize.toFixed(2) })
             }
         }
         setActiveQuestionValue(value)
@@ -96,32 +96,32 @@ export default function ZeroConnectionQuestion() {
                     <div className='p-4 lg:p-8 myShadow rounded mt-6'>
                         <h2 className="text-xl font-medium">02. Age of the account you want to buy?</h2>
                         <div className='grid grid-cols-2 gap-6 pt-6'>
-                            <button onClick={() => handleSubmit(zeroConnectionPrize.sevenDays, "0-7 days")} className={`optionButtonPrize ${activeQuestionValue === zeroConnectionPrize.sevenDays && 'bg-primary text-white'}`}>
-                                <span>0-7 days</span> <span>-</span> <span>{zeroConnectionPrize.sevenDays} $ per Account</span>
+                            <button onClick={() => handleSubmit(zeroConnectionPrize.sevenDays, "0-7 days")} className={`optionButtonPrize group ${activeQuestionValue === zeroConnectionPrize.sevenDays && 'bg-primary text-white'}`}>
+                                <span>0-7 days</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === zeroConnectionPrize.sevenDays && 'text-white/50'}`}>{zeroConnectionPrize.sevenDays} $ per Account</span>
                             </button>
-                            <button onClick={() => handleSubmit(zeroConnectionPrize.fifteenDays, "7-15 days")} className={`optionButtonPrize ${activeQuestionValue === zeroConnectionPrize.fifteenDays && 'bg-primary text-white'}`}>
-                                <span>7-15 days</span> <span>-</span> <span>{zeroConnectionPrize.fifteenDays} $ per Account</span>
+                            <button onClick={() => handleSubmit(zeroConnectionPrize.fifteenDays, "7-15 days")} className={`optionButtonPrize group ${activeQuestionValue === zeroConnectionPrize.fifteenDays && 'bg-primary text-white'}`}>
+                                <span>7-15 days</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === zeroConnectionPrize.fifteenDays && 'text-white/50'}`}>{zeroConnectionPrize.fifteenDays} $ per Account</span>
                             </button>
-                            <button onClick={() => handleSubmit(zeroConnectionPrize.thirtyDays, "16-30 days")} className={`optionButtonPrize ${activeQuestionValue === zeroConnectionPrize.thirtyDays && 'bg-primary text-white'}`}>
-                                <span>16-30 days</span> <span>-</span> <span>{zeroConnectionPrize.thirtyDays} $ per Account</span>
+                            <button onClick={() => handleSubmit(zeroConnectionPrize.thirtyDays, "16-30 days")} className={`optionButtonPrize group ${activeQuestionValue === zeroConnectionPrize.thirtyDays && 'bg-primary text-white'}`}>
+                                <span>16-30 days</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === zeroConnectionPrize.thirtyDays && 'text-white/50'}`}>{zeroConnectionPrize.thirtyDays} $ per Account</span>
                             </button>
-                            <button onClick={() => handleSubmit(zeroConnectionPrize.threeMonths, "1-3 month")} className={`optionButtonPrize ${activeQuestionValue === zeroConnectionPrize.threeMonths && 'bg-primary text-white'}`}>
-                                <span>1-3 month</span> <span>-</span> <span>{zeroConnectionPrize.threeMonths} $ per Account</span>
+                            <button onClick={() => handleSubmit(zeroConnectionPrize.threeMonths, "1-3 month")} className={`optionButtonPrize group ${activeQuestionValue === zeroConnectionPrize.threeMonths && 'bg-primary text-white'}`}>
+                                <span>1-3 month</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === zeroConnectionPrize.threeMonths && 'text-white/50'}`}>{zeroConnectionPrize.threeMonths} $ per Account</span>
                             </button>
-                            <button onClick={() => handleSubmit(zeroConnectionPrize.sixMonths, "3-6 month")} className={`optionButtonPrize ${activeQuestionValue === zeroConnectionPrize.sixMonths && 'bg-primary text-white'}`}>
-                                <span>3-6 month</span> <span>-</span> <span>{zeroConnectionPrize.sixMonths} $ per Account</span>
+                            <button onClick={() => handleSubmit(zeroConnectionPrize.sixMonths, "3-6 month")} className={`optionButtonPrize group ${activeQuestionValue === zeroConnectionPrize.sixMonths && 'bg-primary text-white'}`}>
+                                <span>3-6 month</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === zeroConnectionPrize.sixMonths && 'text-white/50'}`}>{zeroConnectionPrize.sixMonths} $ per Account</span>
                             </button>
-                            <button onClick={() => handleSubmit(zeroConnectionPrize.oneYear, "6-12 month")} className={`optionButtonPrize ${activeQuestionValue === zeroConnectionPrize.oneYear && 'bg-primary text-white'}`}>
-                                <span>6-12 month</span> <span>-</span> <span>{zeroConnectionPrize.oneYear} $ per Account</span>
+                            <button onClick={() => handleSubmit(zeroConnectionPrize.oneYear, "6-12 month")} className={`optionButtonPrize group ${activeQuestionValue === zeroConnectionPrize.oneYear && 'bg-primary text-white'}`}>
+                                <span>6-12 month</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === zeroConnectionPrize.oneYear && 'text-white/50'}`}>{zeroConnectionPrize.oneYear} $ per Account</span>
                             </button>
-                            <button onClick={() => handleSubmit(zeroConnectionPrize.fourYear, "1-4 year")} className={`optionButtonPrize ${activeQuestionValue === zeroConnectionPrize.fourYear && 'bg-primary text-white'}`}>
-                                <span>1-4 year</span> <span>-</span> <span>{zeroConnectionPrize.fourYear} $ per Account</span>
+                            <button onClick={() => handleSubmit(zeroConnectionPrize.fourYear, "1-4 year")} className={`optionButtonPrize group ${activeQuestionValue === zeroConnectionPrize.fourYear && 'bg-primary text-white'}`}>
+                                <span>1-4 year</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === zeroConnectionPrize.fourYear && 'text-white/50'}`}>{zeroConnectionPrize.fourYear} $ per Account</span>
                             </button>
-                            <button onClick={() => handleSubmit(zeroConnectionPrize.tenYear, "5-10 year")} className={`optionButtonPrize ${activeQuestionValue === zeroConnectionPrize.tenYear && 'bg-primary text-white'}`}>
-                                <span>5-10 year</span> <span>-</span> <span>{zeroConnectionPrize.tenYear} $ per Account</span>
+                            <button onClick={() => handleSubmit(zeroConnectionPrize.tenYear, "5-10 year")} className={`optionButtonPrize group ${activeQuestionValue === zeroConnectionPrize.tenYear && 'bg-primary text-white'}`}>
+                                <span>5-10 year</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === zeroConnectionPrize.tenYear && 'text-white/50'}`}>{zeroConnectionPrize.tenYear} $ per Account</span>
                             </button>
-                            <button onClick={() => handleSubmit(zeroConnectionPrize.moreThanTenYear, "10 year+")} className={`optionButtonPrize ${activeQuestionValue === zeroConnectionPrize.moreThanTenYear && 'bg-primary text-white'}`}>
-                                <span>10 year+</span> <span>-</span> <span>{zeroConnectionPrize.moreThanTenYear} $ per Account</span>
+                            <button onClick={() => handleSubmit(zeroConnectionPrize.moreThanTenYear, "10 year+")} className={`optionButtonPrize group ${activeQuestionValue === zeroConnectionPrize.moreThanTenYear && 'bg-primary text-white'}`}>
+                                <span>10 year+</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === zeroConnectionPrize.moreThanTenYear && 'text-white/50'}`}>{zeroConnectionPrize.moreThanTenYear} $ per Account</span>
                             </button>
                         </div>
                     </div>
@@ -134,12 +134,12 @@ export default function ZeroConnectionQuestion() {
                         <h2 className="text-xl font-medium">04. How much account do you want to buy?</h2>
                         <div className='grid grid-cols-2 gap-6 pt-6'>
                             <input value={givenAmount} min={0} onChange={(e) => setGivenAmount(parseInt(e.target.value))} placeholder="Enter account number" type="number" className="px-4 border-2 rounded border-gray-300" />
-                            <button onClick={() => handleSubmit("check")} disabled={givenAmount <= 0} className={`optionButton disabled:bg-gray-200 disabled:text-gray-400 ${givenAmount > 0 && 'bg-primary text-white'}`}>Show Prize</button>
+                            <button onClick={() => handleSubmit("check")} disabled={givenAmount <= 0} className={`optionButton disabled:bg-gray-200 disabled:text-gray-400 ${givenAmount > 0 && 'bg-primary text-white'}`}>Check Prize</button>
                         </div>
                         {
                             zeroQuestionData.totalPrize > 0 &&
                             <div className='pt-4 px-4 text-lg font-medium text-center'>
-                                For {zeroQuestionData.accountAge} age account total prize is <span className="text-blue-700">{zeroQuestionData.totalPrize} $</span>
+                                For {zeroQuestionData.accountAge} age {zeroQuestionData.accountAmount} account total prize is <span className="text-blue-700">{zeroQuestionData.totalPrize} $</span>
                             </div>
                         }
                     </div>

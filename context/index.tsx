@@ -14,17 +14,17 @@ export function AppWrapper({
         accountAge: "",
         prize: 0,
         totalPrize: 0,
-        emailType: "",
-        accountVerification: ""
+        accountAmount: 0
     })
 
     const [questionData, setQuestionData] = useState({
+        connectionType: "",
+        location: "",
         quantity: 0,
         connection: 0,
-        accountAge: 0,
-        connectionType: "",
-        emailType: "",
-        accountVerification: ""
+        accountAge: "",
+        prize: 0,
+        accountAmount: 0
     })
 
     const contextValue = {
