@@ -27,9 +27,18 @@ export default function ServiceSelection({ handleChangeServices, servicesOptions
     const handleOptionChange = (value: number, name: string) => {
         handleChangeServices(value, name)
     };
+
+    const handleSelect = (name: string) => {
+        if (!select) {
+            setSelect(true)
+        } else {
+            setSelect(false)
+            handleChangeServices(0, name)
+        }
+    }
     console.log("object");
     return (
-        <div onClick={() => setSelect(prev => !prev)} className={`relative font-medium border p-6 space-y-2 rounded cursor-pointer ${select && "border-blue-500"}`}>
+        <div onClick={() => handleSelect(servicesOptions?.name)} className={`relative font-medium border p-6 space-y-2 rounded cursor-pointer ${select && "border-blue-500"}`}>
 
             <h2 className="pb-1">{servicesOptions?.title}</h2>
             {
