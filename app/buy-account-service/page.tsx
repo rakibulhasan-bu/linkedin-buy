@@ -7,6 +7,14 @@ import toast from "react-hot-toast";
 import { useForm } from "antd/es/form/Form";
 
 export default function ServicesPage() {
+
+  const sharePrize = 0.04;
+  const connectionPrize = 0.05;
+  const followersPrize = 0.045;
+  const commentsPrize = 0.05;
+  const reactionsPrize = 0.035;
+  const likesPrize = 0.03;
+
   const [form] = useForm();
   const [services, setServices] = useState({
     share: 0,
@@ -401,7 +409,7 @@ export default function ServicesPage() {
             <div className="text-white space-y-1 p-2 rounded  border-b border-white/50">
               <div className='flex items-center justify-between  text-base'>
                 <p className="">Linkedin Shares / Reposts</p>
-                <p className="">$ {services.share}</p>
+                <p className="">$ {(services.share * sharePrize).toFixed(2)}</p>
               </div>
               <div className="text-gray-300 text-sm max-w-[80%]">Amount of Shares / Reposts <span className="text-white">{services.share} Shares / Reposts</span></div>
             </div>
@@ -412,7 +420,7 @@ export default function ServicesPage() {
             <div className="text-white space-y-1 p-2 rounded  border-b border-white/50">
               <div className='flex items-center justify-between  text-base'>
                 <p className="">Linkedin Connections</p>
-                <p className="">$ {services.connections}</p>
+                <p className="">$ {(services.connections * connectionPrize).toFixed(2)}</p>
               </div>
               <div className="text-gray-300 text-sm">Amount of Connections <span className="text-white">{services.connections} Connections</span></div>
             </div>
@@ -423,7 +431,7 @@ export default function ServicesPage() {
             <div className="text-white space-y-1 p-2 rounded  border-b border-white/50">
               <div className='flex items-center justify-between  text-base'>
                 <p className="">Linkedin Followers</p>
-                <p className="">$ {services.followers}</p>
+                <p className="">$ {(services.followers * followersPrize).toFixed(2)}</p>
               </div>
               <div className="text-gray-300 text-sm">Amount of Followers <span className="text-white">{services.followers} Followers</span></div>
             </div>
@@ -434,7 +442,7 @@ export default function ServicesPage() {
             <div className="text-white space-y-1 p-2 rounded  border-b border-white/50">
               <div className='flex items-center justify-between  text-base'>
                 <p className="">Linkedin Comments</p>
-                <p className="">$ {services.comments}</p>
+                <p className="">$ {(services.comments * commentsPrize).toFixed(2)}</p>
               </div>
               <div className="text-gray-300 text-sm">Amount of Comments <span className="text-white">{services.comments} Comments</span></div>
             </div>
@@ -445,7 +453,7 @@ export default function ServicesPage() {
             <div className="text-white space-y-1 p-2 rounded  border-b border-white/50">
               <div className='flex items-center justify-between  text-base'>
                 <p className="">Linkedin Reactions</p>
-                <p className="">$ {services.reactions}</p>
+                <p className="">$ {(services.reactions * reactionsPrize).toFixed(2)}</p>
               </div>
               <div className="text-gray-300 text-sm">Amount of Reactions <span className="text-white">{services.reactions} Reactions</span></div>
             </div>
@@ -456,7 +464,7 @@ export default function ServicesPage() {
             <div className="text-white space-y-1 p-2 rounded border-b border-white/50">
               <div className='flex items-center justify-between  text-base'>
                 <p className="">Linkedin Likes</p>
-                <p className="">$ {services.likes}</p>
+                <p className="">$ {(services.likes * likesPrize).toFixed(2)}</p>
               </div>
               <div className="text-gray-300 text-sm">Amount of Likes <span className="text-white">{services.likes} Likes</span></div>
             </div>
@@ -472,7 +480,7 @@ export default function ServicesPage() {
               <p className="text-lg">Total</p>
               <p className="text-gray-300">USD</p>
             </div>
-            <p className="text-xl font-semibold">$ {services.share + services.connections + services.followers + services.comments + services.reactions + services.likes}</p>
+            <p className="text-xl font-semibold">$ {(services.share * sharePrize) + (services.connections * connectionPrize) + (services.followers * followersPrize) + (services.comments * commentsPrize) + (services.reactions * reactionsPrize) + (services.likes * likesPrize)}</p>
           </div>
 
 
