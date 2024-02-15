@@ -5,6 +5,8 @@ import ServiceSelection, { TServicesOptions } from "../components/account-servic
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "antd/es/form/Form";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface TServicesPrice {
   sharePrize: number;
@@ -33,6 +35,7 @@ export default function ServicesPage() {
   const likesPrize = servicesPrice.likesPrize;
 
   const [form] = useForm();
+  const router = useRouter()
   // const [filledFields, setFilledFields] = useState<string[]>([]);
   const [activeOrder, setActiveOrder] = useState(false);
   const [services, setServices] = useState({
@@ -42,7 +45,16 @@ export default function ServicesPage() {
     comments: 0,
     reactions: 0,
     likes: 0
-  })
+  });
+
+  const nonZeroValues = Object.entries(services).reduce((acc: any, [key, value]) => {
+    if (value !== 0) {
+      acc[key] = value;
+    }
+    return acc;
+  }, {});
+
+  const totalPrize = (services.share * sharePrize) + (services.connections * connectionPrize) + (services.followers * followersPrize) + (services.comments * commentsPrize) + (services.reactions * reactionsPrize) + (services.likes * likesPrize);
 
   const servicesOptions = [
     {
@@ -283,9 +295,24 @@ export default function ServicesPage() {
     }
   }
 
-  const onFinish = (formData: any) => {
-    console.log('Form data:', formData);
-    form.resetFields();
+  const onFinish = async (formData: any) => {
+    // console.log('Form data:', formData);
+    const submitData = {
+      ...formData, ...nonZeroValues, totalPrize
+    }
+    if (formData.whatsApp === undefined && formData.skype === undefined && formData.telegram === undefined) {
+      return toast.error("Please fill up WhatsApp or Skype or Telegram account")
+    }
+
+    const { data } = await axios.post("https://linkedin-buy-server.vercel.app/api/order-services", { ...submitData })
+
+    if (data.success) {
+      router.push('/explore-our-services')
+      toast.success(data.message)
+      form.resetFields();
+    } else {
+      toast.error(data.message)
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -338,7 +365,7 @@ export default function ServicesPage() {
 
               {
                 services.share > 0 &&
-                <Form.Item name='share' label="Post Link for Shares / Reposts"
+                <Form.Item name='sharePostLink' label="Post Link for Shares / Reposts"
                   rules={[
                     { required: true, message: 'Please input your Link for Shares / Reposts!' },
                     {
@@ -351,7 +378,7 @@ export default function ServicesPage() {
               }
               {
                 services.connections > 0 &&
-                <Form.Item name='connections' label="Profile Link for Connections"
+                <Form.Item name='connectionsPostLink' label="Profile Link for Connections"
                   rules={[
                     { required: true, message: 'Please input your Link for Connections!' },
                     {
@@ -364,7 +391,7 @@ export default function ServicesPage() {
               }
               {
                 services.followers > 0 &&
-                <Form.Item name='followers' label="Profile Link for Followers"
+                <Form.Item name='followersPostLink' label="Profile Link for Followers"
                   rules={[
                     { required: true, message: 'Please input your Link for Followers!' },
                     {
@@ -377,7 +404,7 @@ export default function ServicesPage() {
               }
               {
                 services.comments > 0 &&
-                <Form.Item name='comments' label="Post Link for Random Comments" rules={[
+                <Form.Item name='commentsPostLink' label="Post Link for Random Comments" rules={[
                   { required: true, message: 'Please input your Link for Random Comments!' },
                   {
                     type: 'url',
@@ -389,7 +416,7 @@ export default function ServicesPage() {
               }
               {
                 services.reactions > 0 &&
-                <Form.Item name='reactions' label="Post Link for Reactions" rules={[
+                <Form.Item name='reactionsPostLink' label="Post Link for Reactions" rules={[
                   { required: true, message: 'Please input your Link for Reactions!' },
                   {
                     type: 'url',
@@ -401,7 +428,7 @@ export default function ServicesPage() {
               }
               {
                 services.likes > 0 &&
-                <Form.Item name='likes' label="Post Link for Likes" rules={[
+                <Form.Item name='likesPostLink' label="Post Link for Likes" rules={[
                   { required: true, message: 'Please input your Link for Likes !' },
                   {
                     type: 'url',
@@ -558,10 +585,8 @@ export default function ServicesPage() {
               <p className="text-lg">Total</p>
               <p className="text-gray-300">USD</p>
             </div>
-            <p className="text-xl font-semibold">$ {(services.share * sharePrize) + (services.connections * connectionPrize) + (services.followers * followersPrize) + (services.comments * commentsPrize) + (services.reactions * reactionsPrize) + (services.likes * likesPrize)}</p>
+            <p className="text-xl font-semibold">$ {totalPrize}</p>
           </div>
-
-
 
 
         </div>
