@@ -5,15 +5,34 @@ import ServiceSelection, { TServicesOptions } from "../components/account-servic
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "antd/es/form/Form";
+import getServicesPrices from "./getServicesPrices";
+import axios from "axios";
+
+interface TServicesPrice {
+  sharePrize: number;
+  connectionPrize: number;
+  followersPrize: number;
+  commentsPrize: number;
+  reactionsPrize: number;
+  likesPrize: number;
+}
 
 export default function ServicesPage() {
+  const [servicesPrice, setServicesPrice] = useState<TServicesPrice>({
+    sharePrize: 0,
+    connectionPrize: 0,
+    followersPrize: 0,
+    commentsPrize: 0,
+    reactionsPrize: 0,
+    likesPrize: 0
+  })
 
-  const sharePrize = 0.04;
-  const connectionPrize = 0.05;
-  const followersPrize = 0.045;
-  const commentsPrize = 0.05;
-  const reactionsPrize = 0.035;
-  const likesPrize = 0.03;
+  const sharePrize = servicesPrice.sharePrize;
+  const connectionPrize = servicesPrice.connectionPrize;
+  const followersPrize = servicesPrice.followersPrize;
+  const commentsPrize = servicesPrice.commentsPrize;
+  const reactionsPrize = servicesPrice.reactionsPrize;
+  const likesPrize = servicesPrice.likesPrize;
 
   const [form] = useForm();
   // const [filledFields, setFilledFields] = useState<string[]>([]);
@@ -281,6 +300,13 @@ export default function ServicesPage() {
       // form.resetFields();
     }
   };
+
+  useEffect(() => {
+    axios.get("https://linkedin-buy-server.vercel.app/api/services-price").then(data => {
+      const prices = data.data.data[0];
+      setServicesPrice(prices);
+    })
+  }, []);
 
   useEffect(() => {
     if (services.share > 0 || services.connections > 0 || services.followers > 0 || services.reactions > 0 || services.comments > 0 || services.likes > 0) {
