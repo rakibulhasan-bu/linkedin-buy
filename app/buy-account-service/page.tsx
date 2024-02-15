@@ -5,8 +5,6 @@ import ServiceSelection, { TServicesOptions } from "../components/account-servic
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useForm } from "antd/es/form/Form";
-import getServicesPrices from "./getServicesPrices";
-import axios from "axios";
 
 interface TServicesPrice {
   sharePrize: number;
