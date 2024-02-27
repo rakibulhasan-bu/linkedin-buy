@@ -199,44 +199,47 @@ export default function OneOrMoreConnectionQuestion() {
                         <h2 className="text-xl font-medium">04. Age of the account you want to buy?</h2>
                         <div className='grid grid-cols-2 gap-6 pt-6'>
                             {
-                                questionData.connection < 10 &&
+                                questionData.manualConnection <= 10 &&
                                 <button onClick={() => handleSubmit(manualConnectionPrize.sevenDays, "0-7 Days")} className={`optionButtonPrize group ${activeQuestionValue === manualConnectionPrize.sevenDays && 'bg-primary text-white'}`}>
                                     <span>0-7 Days</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.sevenDays && 'text-white/50'}`}>{manualConnectionPrize.sevenDays} $ per Account</span>
                                 </button>
                             }
                             {
-                                questionData.connection < 10 &&
+                                questionData.manualConnection <= 10 &&
                                 <button onClick={() => handleSubmit(manualConnectionPrize.fifteenDays, "8-15 Days")} className={`optionButtonPrize group ${activeQuestionValue === manualConnectionPrize.fifteenDays && 'bg-primary text-white'}`}>
-                                    <span>8-30 Days</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.fifteenDays && 'text-white/50'}`}>{manualConnectionPrize.fifteenDays} $ per Account</span>
+                                    <span>8-15 Days</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.fifteenDays && 'text-white/50'}`}>{manualConnectionPrize.fifteenDays} $ per Account</span>
                                 </button>
                             }
                             {
-                                questionData.connection < 50 &&
+                                questionData.manualConnection <= 50 &&
                                 <button onClick={() => handleSubmit(manualConnectionPrize.thirtyDays, "16-30 Days")} className={`optionButtonPrize group ${activeQuestionValue === manualConnectionPrize.thirtyDays && 'bg-primary text-white'}`}>
                                     <span>16-30 Days</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.thirtyDays && 'text-white/50'}`}>{manualConnectionPrize.thirtyDays} $ per Account</span>
                                 </button>
                             }
                             {
-                                questionData.connection < 100 &&
+                                questionData.manualConnection <= 100 &&
                                 <button onClick={() => handleSubmit(manualConnectionPrize.threeMonths, "1-3 month")} className={`optionButtonPrize group ${activeQuestionValue === manualConnectionPrize.threeMonths && 'bg-primary text-white'}`}>
                                     <span>1-3 month</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.threeMonths && 'text-white/50'}`}>{manualConnectionPrize.threeMonths} $ per Account</span>
                                 </button>
                             }
                             {
-                                questionData.connection < 200 &&
+                                questionData.manualConnection <= 200 &&
                                 <button onClick={() => handleSubmit(manualConnectionPrize.sixMonths, "3-6 month")} className={`optionButtonPrize group ${activeQuestionValue === manualConnectionPrize.sixMonths && 'bg-primary text-white'}`}>
                                     <span>3-6 month</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.sixMonths && 'text-white/50'}`}>{manualConnectionPrize.sixMonths} $ per Account</span>
                                 </button>
                             }
                             {
-                                questionData.connection < 1000 &&
+                                questionData.manualConnection <= 300 &&
                                 <button onClick={() => handleSubmit(manualConnectionPrize.oneYear, "6-12 month")} className={`optionButtonPrize group ${activeQuestionValue === manualConnectionPrize.oneYear && 'bg-primary text-white'}`}>
                                     <span>6-12 month</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.oneYear && 'text-white/50'}`}>{manualConnectionPrize.oneYear} $ per Account</span>
                                 </button>
                             }
-                            <button onClick={() => handleSubmit(manualConnectionPrize.fourYear, "1-4 year")} className={`optionButtonPrize group ${activeQuestionValue === manualConnectionPrize.fourYear && 'bg-primary text-white'}`}>
-                                <span>1-4 year</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.fourYear && 'text-white/50'}`}>{manualConnectionPrize.fourYear} $ per Account</span>
-                            </button>
+                            {
+                                questionData.manualConnection <= 500 &&
+                                <button onClick={() => handleSubmit(manualConnectionPrize.fourYear, "1-4 year")} className={`optionButtonPrize group ${activeQuestionValue === manualConnectionPrize.fourYear && 'bg-primary text-white'}`}>
+                                    <span>1-4 year</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.fourYear && 'text-white/50'}`}>{manualConnectionPrize.fourYear} $ per Account</span>
+                                </button>
+                            }
                             <button onClick={() => handleSubmit(manualConnectionPrize.tenYear, "5-10 year")} className={`optionButtonPrize group ${activeQuestionValue === manualConnectionPrize.tenYear && 'bg-primary text-white'}`}>
                                 <span>5-10 year</span> <span>-</span> <span className={`text-gray-500 group-hover:text-white/50 ${activeQuestionValue === manualConnectionPrize.tenYear && 'text-white/50'}`}>{manualConnectionPrize.tenYear} $ per Account</span>
                             </button>
