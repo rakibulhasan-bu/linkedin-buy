@@ -59,9 +59,13 @@ export default function OneOrMoreConnectionQuestion() {
                 setQuestionData({ ...questionData, manualPrize: value, manualAccountAge: days })
             }
         }
+
         if (questionNo === 4) {
-            if (value === "check") {
-                const checkPrize = givenAmount * questionData.prize
+            if (value === "check" && questionData?.connectionType === "organic") {
+                const checkPrize = givenAmount * questionData.organicPrize;
+                setQuestionData({ ...questionData, accountAmount: givenAmount, totalPrize: checkPrize.toFixed(2) })
+            } else if (value === "check" && questionData?.connectionType === "manually") {
+                const checkPrize = givenAmount * questionData.manualPrize;
                 setQuestionData({ ...questionData, accountAmount: givenAmount, totalPrize: checkPrize.toFixed(2) })
             }
         }
@@ -262,7 +266,7 @@ export default function OneOrMoreConnectionQuestion() {
                         {
                             questionData.totalPrize > 0 &&
                             <div className='pt-4 px-4 text-lg font-medium text-center'>
-                                For {questionData.accountAge} age {questionData.accountAmount} account total prize is <span className="text-blue-700">{questionData.totalPrize} $</span>
+                                For {questionData?.connectionType === 'organic' ? questionData.organicAccountAge : questionData.manualAccountAge} age {questionData.accountAmount} account total prize is <span className="text-blue-700">{questionData.totalPrize} $</span>
                             </div>
                         }
                     </div>
