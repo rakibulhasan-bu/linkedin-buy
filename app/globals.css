@@ -6,11 +6,14 @@
   .button {
     @apply px-2 lg:px-4 py-1 text-sm lg:text-base lg:font-medium text-white bg-primary/95 hover:bg-primary rounded;
   }
+  .dashboardBtn {
+    @apply border border-blue-500 hover:bg-blue-500 hover:text-white py-1 px-3 rounded font-medium;
+  }
   .optionButton {
     @apply text-lg font-medium text-black/80 myShadow rounded py-1.5 hover:bg-primary hover:text-white;
   }
   .optionButtonPrize {
-    @apply flex items-center justify-between  text-lg font-medium text-black/80 myShadow rounded px-8 py-1.5 hover:bg-primary hover:text-white;
+    @apply flex items-center justify-between  text-lg font-medium text-black/80 myShadow rounded px-8 py-1.5 hover:bg-primary hover:text-white hover:text-xl transition-all;
   }
   .myShadow {
     @apply shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)];

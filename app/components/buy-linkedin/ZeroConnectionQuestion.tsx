@@ -1,11 +1,28 @@
 'use client'
 
+import { TZeroConnectionPricing } from "@/app/dashboard/zero-connection-price/page";
 import { useAppContext } from "@/context";
+import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function ZeroConnectionQuestion() {
+    const [zeroConnectionPricing, setZeroConnectionPricing] = useState<TZeroConnectionPricing>();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://linkedin-buy-server.vercel.app/api/zero-connection-price');
+                setZeroConnectionPricing(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const { zeroQuestionData, setZeroQuestionData } = useAppContext()
     const router = useRouter()
     const [questionNo, setQuestionNo] = useState(0);
@@ -13,15 +30,15 @@ export default function ZeroConnectionQuestion() {
     const [activeQuestionValue, setActiveQuestionValue] = useState<string | number | null>(null);
 
     const zeroConnectionPrize = {
-        sevenDays: 0.30,
-        fifteenDays: 0.35,
-        thirtyDays: 0.50,
-        threeMonths: 1.00,
-        sixMonths: 2.00,
-        oneYear: 2.80,
-        fourYear: 4.00,
-        tenYear: 5.30,
-        moreThanTenYear: 5.50
+        sevenDays: zeroConnectionPricing?.sevenDays,
+        fifteenDays: zeroConnectionPricing?.fifteenDays,
+        thirtyDays: zeroConnectionPricing?.thirtyDays,
+        threeMonths: zeroConnectionPricing?.threeMonths,
+        sixMonths: zeroConnectionPricing?.sixMonths,
+        oneYear: zeroConnectionPricing?.oneYear,
+        fourYear: zeroConnectionPricing?.fourYear,
+        tenYear: zeroConnectionPricing?.tenYear,
+        moreThanTenYear: zeroConnectionPricing?.moreThanTenYear,
     }
 
     const previousQuestionHandler = () => {

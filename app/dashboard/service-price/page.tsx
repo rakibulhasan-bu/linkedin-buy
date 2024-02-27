@@ -2,7 +2,7 @@ const getServicesPrices = async () => {
     const response = await fetch(
         "https://linkedin-buy-server.vercel.app/api/services-price",
         {
-            cache: "no-store"
+            cache: "no-cache"
         }
     );
     return await response.json();

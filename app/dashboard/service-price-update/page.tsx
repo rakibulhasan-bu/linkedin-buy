@@ -3,16 +3,19 @@
 import { Button, Form, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 export default function ServicesPricePage() {
     const [form] = useForm();
+    const router = useRouter()
     const onFinish = async (formData: any) => {
         console.log('Form data:', formData);
         const { data } = await axios.patch("https://linkedin-buy-server.vercel.app/api/services-price/65cd6546fe68c1eab068525f", { ...formData })
 
         if (data.success) {
             toast.success(data.message)
+            router.push('/dashboard/service-price')
             form.resetFields();
         }
     };
@@ -105,7 +108,7 @@ export default function ServicesPricePage() {
                             type="primary"
                             className="bg-blue-500 w-full text-lg h-9 font-semibold"
                             htmlType="submit">
-                            Order Now
+                            Update
                         </Button>
                     </Form.Item>
                 </Form>

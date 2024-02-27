@@ -1,16 +1,45 @@
-import Link from "next/link";
+'use client'
 
-export default function layout({
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+export default function Layout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+    const pathname = usePathname();
+
+    const navLinks = [
+        {
+            label: "Service Price",
+            path: "/dashboard/service-price"
+        },
+        {
+            label: "Service Price Update",
+            path: "/dashboard/service-price-update"
+        },
+        {
+            label: "Order Services",
+            path: "/dashboard/order-services"
+        },
+        {
+            label: "Zero Connection Price",
+            path: "/dashboard/zero-connection-price"
+        },
+        {
+            label: "Zero Connection Price Update",
+            path: "/dashboard/zero-connection-price-update"
+        },
+    ]
     return (
         <div className='flex h-screen overflow-auto'>
-            <div className='w-1/6 h-full flex flex-col gap-4 bg-slate-100 py-8 px-2'>
-                <Link href={'/dashboard/service-price'} className="border border-blue-500 hover:bg-blue-500 hover:text-white py-1 px-4 rounded font-medium">Service Price</Link>
-                <Link href={'/dashboard/service-price-update'} className="border border-blue-500 hover:bg-blue-500 hover:text-white py-1 px-4 rounded font-medium">Service Price Update</Link>
-                <Link href={'/dashboard/order-services'} className="border border-blue-500 hover:bg-blue-500 hover:text-white py-1 px-4 rounded font-medium">Order Services</Link>
+            <div className='w-1/6 h-full flex flex-col gap-4 bg-slate-100 py-8 px-3'>
+                {
+                    navLinks.map(nav => (
+                        <Link key={nav?.label} href={nav?.path} className={`dashboardBtn ${pathname === nav?.path && 'bg-blue-500 text-white'}`}>{nav?.label}</Link>
+                    ))
+                }
             </div>
             <div className='w-5/6'>
                 {children}
