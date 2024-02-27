@@ -4,9 +4,38 @@ import { Button, Form, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+interface TServicePricing {
+    sharePrize: string;
+    connectionPrize: string;
+    followersPrize: string;
+    commentsPrize: string;
+    reactionsPrize: string;
+    likesPrize: string;
+}
+
 export default function ServicesPricePage() {
+    const [servicePrice, setServicePrice] = useState<TServicePricing>();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://linkedin-buy-server.vercel.app/api/services-price');
+                setServicePrice(response?.data?.data[0]);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
     const [form] = useForm();
     const router = useRouter()
     const onFinish = async (formData: any) => {
@@ -31,6 +60,10 @@ export default function ServicesPricePage() {
         }
     };
 
+    if (loading || !servicePrice) {
+        return <div className="h-[60vh] flex items-center justify-center text-center text-2xl font-semibold">Please wait ...</div>;
+    }
+
     return (
         <div className='p-8'>
             <h2 className="text-lg font-semibold text-center">Update Services Price</h2>
@@ -39,7 +72,16 @@ export default function ServicesPricePage() {
                     form={form}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
-                    layout="vertical">
+                    layout="vertical"
+                    initialValues={{
+                        sharePrize: servicePrice?.sharePrize,
+                        connectionPrize: servicePrice?.connectionPrize,
+                        followersPrize: servicePrice?.followersPrize,
+                        commentsPrize: servicePrice?.commentsPrize,
+                        reactionsPrize: servicePrice?.reactionsPrize,
+                        likesPrize: servicePrice?.likesPrize,
+                    }}
+                >
 
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-x-6 py-4'>
                         <Form.Item name='sharePrize' label="Share Prize" rules={[

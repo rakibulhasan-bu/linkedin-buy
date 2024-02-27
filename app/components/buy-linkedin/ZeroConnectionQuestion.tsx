@@ -14,7 +14,7 @@ export default function ZeroConnectionQuestion() {
         const fetchData = async () => {
             try {
                 const response = await axios.get('https://linkedin-buy-server.vercel.app/api/zero-connection-price');
-                setZeroConnectionPricing(response.data);
+                setZeroConnectionPricing(response?.data?.data[0]);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

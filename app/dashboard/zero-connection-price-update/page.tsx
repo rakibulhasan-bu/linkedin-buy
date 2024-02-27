@@ -4,15 +4,35 @@ import { Button, Form, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { TZeroConnectionPricing } from "../zero-connection-price/page";
 
 export default function ServicesPricePage() {
+    const [zeroConnectionPrice, setZeroConnectionPrice] = useState<TZeroConnectionPricing>();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://linkedin-buy-server.vercel.app/api/zero-connection-price');
+                setZeroConnectionPrice(response?.data?.data[0]);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const [form] = useForm();
     const router = useRouter()
     const onFinish = async (formData: any) => {
-        console.log('Form data:', formData);
+
         const { data } = await axios.patch("https://linkedin-buy-server.vercel.app/api/zero-connection-price/65dcd155adf92949959986bc", { ...formData })
-        console.log(data);
+
         if (data.success) {
             toast.success(data.message)
             router.push('/dashboard/zero-connection-price')
@@ -31,6 +51,10 @@ export default function ServicesPricePage() {
         }
     };
 
+    if (loading || !zeroConnectionPrice) {
+        return <div className="h-[60vh] flex items-center justify-center text-center text-2xl font-semibold">Please wait ...</div>;
+    }
+
     return (
         <div className='p-8'>
             <h2 className="text-lg font-semibold text-center">Update Services Price</h2>
@@ -39,7 +63,19 @@ export default function ServicesPricePage() {
                     form={form}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
-                    layout="vertical">
+                    layout="vertical"
+                    initialValues={{
+                        sevenDays: zeroConnectionPrice?.sevenDays,
+                        fifteenDays: zeroConnectionPrice?.fifteenDays,
+                        thirtyDays: zeroConnectionPrice?.thirtyDays,
+                        threeMonths: zeroConnectionPrice?.threeMonths,
+                        sixMonths: zeroConnectionPrice?.sixMonths,
+                        oneYear: zeroConnectionPrice?.oneYear,
+                        fourYear: zeroConnectionPrice?.fourYear,
+                        tenYear: zeroConnectionPrice?.tenYear,
+                        moreThanTenYear: zeroConnectionPrice?.moreThanTenYear,
+                    }}
+                >
 
                     <div className='grid grid-cols-1 lg:grid-cols-3 gap-x-6 py-4'>
                         <Form.Item name='sevenDays' label="Seven Days Prize" rules={[

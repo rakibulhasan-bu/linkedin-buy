@@ -31,6 +31,14 @@ export default function Layout({
             label: "Zero Connection Price Update",
             path: "/dashboard/zero-connection-price-update"
         },
+        {
+            label: "Organic Price",
+            path: "/dashboard/organic-price"
+        },
+        {
+            label: "Organic Price Update",
+            path: "/dashboard/organic-price-update"
+        },
     ]
     return (
         <div className='flex h-screen overflow-auto'>
