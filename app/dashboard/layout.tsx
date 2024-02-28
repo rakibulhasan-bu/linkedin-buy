@@ -28,7 +28,7 @@ export default function Layout({
             path: "/dashboard/zero-connection-price"
         },
         {
-            label: "Zero Connection Price Update",
+            label: "Zero Price Update",
             path: "/dashboard/zero-connection-price-update"
         },
         {
@@ -38,6 +38,14 @@ export default function Layout({
         {
             label: "Organic Price Update",
             path: "/dashboard/organic-price-update"
+        },
+        {
+            label: "Manually Price",
+            path: "/dashboard/manual-price"
+        },
+        {
+            label: "Manually Price Update",
+            path: "/dashboard/manual-price-update"
         },
     ]
     return (

@@ -10,7 +10,7 @@ export default function Footer() {
                     <span className="text-lg font-semibold text-primary">Buy Linkedin Account</span>
                 </Link>
             </p>
-            <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4"><Link href={'/dashboard'}>©</Link> Buy Linkedin Account —
+            <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4"><Link href={'/sign-in'}>©</Link> Buy Linkedin Account —
                 <Link href="/" className="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">buylinkedinacc@gmail.com</Link>
             </p>
             <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">

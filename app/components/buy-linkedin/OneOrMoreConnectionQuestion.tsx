@@ -1,5 +1,6 @@
 'use client'
 
+import { TManualPrice } from "@/app/interface/manual-price";
 import { TOrganicPrice } from "@/app/interface/organic-price";
 import { useAppContext } from "@/context";
 import axios from "axios";
@@ -20,6 +21,25 @@ export default function OneOrMoreConnectionQuestion() {
                 console.error('Error fetching data:', error);
             } finally {
                 setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+    const [manualPrice, setManualPrice] = useState<TManualPrice>();
+    const [manualLoading, setManualLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://linkedin-buy-server.vercel.app/api/manual-price/65ded3011ec8223f23f25e6f');
+                setManualPrice(response?.data.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setManualLoading(false);
             }
         };
 
@@ -102,20 +122,21 @@ export default function OneOrMoreConnectionQuestion() {
     }
 
     const manualConnectionPrize = {
-        sevenDays: questionData?.manualConnection === 10 ? 0.4 : 0,
-        fifteenDays: questionData?.manualConnection === 10 ? 0.5 : 0,
-        thirtyDays: questionData?.manualConnection === 10 ? 0.6 : 0 || questionData?.manualConnection === 50 ? 1.8 : 0,
-        threeMonths: questionData?.manualConnection === 10 ? 1.20 : 0 || questionData?.manualConnection === 50 ? 3.2 : 0 || questionData?.manualConnection === 100 ? 5 : 0,
-        sixMonths: questionData?.manualConnection === 10 ? 2.20 : 0 || questionData?.manualConnection === 50 ? 2.2 : 0 || questionData?.manualConnection === 100 ? 6 : 0 || questionData?.manualConnection === 200 ? 7 : 0,
-        oneYear: questionData?.manualConnection === 10 ? 3.1 : 0 || questionData?.manualConnection === 50 ? 4.5 : 0 || questionData?.manualConnection === 100 ? 7 : 0 || questionData?.manualConnection === 200 ? 8.5 : 0 || questionData?.manualConnection === 300 ? 9.5 : 0,
-        fourYear: questionData?.manualConnection === 10 ? 4.5 : 0 || questionData?.manualConnection === 50 ? 5.8 : 0 || questionData?.manualConnection === 100 ? 8.5 : 0 || questionData?.manualConnection === 200 ? 10 : 0 || questionData?.manualConnection === 300 ? 11 : 0 || questionData?.manualConnection === 500 ? 32 : 0,
-        tenYear: questionData?.manualConnection === 10 ? 5.6 : 0 || questionData?.manualConnection === 50 ? 6.8 : 0 || questionData?.manualConnection === 100 ? 10 : 0 || questionData?.manualConnection === 200 ? 12 : 0 || questionData?.manualConnection === 300 ? 13 : 0 || questionData?.manualConnection === 500 ? 35 : 0,
-        moreThanTenYear: questionData?.manualConnection === 10 ? 6 : 0 || questionData?.manualConnection === 50 ? 7.2 : 0 || questionData?.manualConnection === 100 ? 10.5 : 0 || questionData?.manualConnection === 200 ? 12.5 : 0 || questionData?.manualConnection === 300 ? 13.5 : 0 || questionData?.manualConnection === 500 ? 37 : 0,
+        sevenDays: questionData?.manualConnection === 10 ? manualPrice?.tenConnection?.sevenDays : 0,
+        fifteenDays: questionData?.manualConnection === 10 ? manualPrice?.tenConnection?.fifteenDays : 0,
+        thirtyDays: questionData?.manualConnection === 10 ? manualPrice?.tenConnection?.thirtyDays : 0 || questionData?.manualConnection === 50 ? manualPrice?.fiftyConnection?.thirtyDays : 0,
+        threeMonths: questionData?.manualConnection === 10 ? manualPrice?.tenConnection?.threeMonths : 0 || questionData?.manualConnection === 50 ? manualPrice?.fiftyConnection?.threeMonths : 0 || questionData?.manualConnection === 100 ? manualPrice?.hundredConnection?.threeMonths : 0,
+        sixMonths: questionData?.manualConnection === 10 ? manualPrice?.tenConnection?.sixMonths : 0 || questionData?.manualConnection === 50 ? manualPrice?.fiftyConnection?.sixMonths : 0 || questionData?.manualConnection === 100 ? manualPrice?.hundredConnection?.sixMonths : 0 || questionData?.manualConnection === 200 ? manualPrice?.twoHundredConnection?.sixMonths : 0,
+        oneYear: questionData?.manualConnection === 10 ? manualPrice?.tenConnection?.oneYear : 0 || questionData?.manualConnection === 50 ? manualPrice?.fiftyConnection?.oneYear : 0 || questionData?.manualConnection === 100 ? manualPrice?.hundredConnection?.oneYear : 0 || questionData?.manualConnection === 200 ? manualPrice?.twoHundredConnection?.oneYear : 0 || questionData?.manualConnection === 300 ? manualPrice?.threeHundredConnection?.oneYear : 0,
+        fourYear: questionData?.manualConnection === 10 ? manualPrice?.tenConnection?.fourYear : 0 || questionData?.manualConnection === 50 ? manualPrice?.fiftyConnection?.fourYear : 0 || questionData?.manualConnection === 100 ? manualPrice?.hundredConnection?.fourYear : 0 || questionData?.manualConnection === 200 ? manualPrice?.twoHundredConnection?.fourYear : 0 || questionData?.manualConnection === 300 ? manualPrice?.threeHundredConnection?.fourYear : 0 || questionData?.manualConnection === 500 ? manualPrice?.fiveHundredConnection?.fourYear : 0,
+        tenYear: questionData?.manualConnection === 10 ? manualPrice?.tenConnection?.tenYear : 0 || questionData?.manualConnection === 50 ? manualPrice?.fiftyConnection?.tenYear : 0 || questionData?.manualConnection === 100 ? manualPrice?.hundredConnection?.tenYear : 0 || questionData?.manualConnection === 200 ? manualPrice?.twoHundredConnection?.tenYear : 0 || questionData?.manualConnection === 300 ? manualPrice?.threeHundredConnection?.tenYear : 0 || questionData?.manualConnection === 500 ? manualPrice?.fiveHundredConnection?.tenYear : 0,
+        moreThanTenYear: questionData?.manualConnection === 10 ? manualPrice?.tenConnection?.moreThanTenYear : 0 || questionData?.manualConnection === 50 ? manualPrice?.fiftyConnection?.moreThanTenYear : 0 || questionData?.manualConnection === 100 ? manualPrice?.hundredConnection?.moreThanTenYear : 0 || questionData?.manualConnection === 200 ? manualPrice?.twoHundredConnection?.moreThanTenYear : 0 || questionData?.manualConnection === 300 ? manualPrice?.threeHundredConnection?.moreThanTenYear : 0 || questionData?.manualConnection === 500 ? manualPrice?.fiveHundredConnection?.moreThanTenYear : 0,
     }
 
-    console.log(questionData);
-
     if (loading || (questionData.connectionType === "organic" && !organicPrice)) {
+        return <div className="h-[60vh] flex items-center justify-center text-center text-2xl font-semibold">Please wait ...</div>;
+    }
+    if (manualLoading || (questionData.connectionType === "manually" && !manualPrice)) {
         return <div className="h-[60vh] flex items-center justify-center text-center text-2xl font-semibold">Please wait ...</div>;
     }
 
