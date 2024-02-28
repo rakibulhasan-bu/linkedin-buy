@@ -1,22 +1,22 @@
 'use client'
 
+import { TOrganicPrice } from "@/app/interface/organic-price";
 import { Button, Form, Input } from "antd";
 import { useForm } from "antd/es/form/Form";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { TZeroConnectionPricing } from "../zero-connection-price/page";
 
 export default function OrganicPrizeUpdatePage() {
-    const [zeroConnectionPrice, setZeroConnectionPrice] = useState<TZeroConnectionPricing>();
+    const [organicPrice, setOrganicPrice] = useState<TOrganicPrice>();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://linkedin-buy-server.vercel.app/api/zero-connection-price');
-                setZeroConnectionPrice(response?.data?.data[0]);
+                const response = await axios.get('https://linkedin-buy-server.vercel.app/api/organic-price/65de9591ddb773b06d55c449');
+                setOrganicPrice(response?.data.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -89,14 +89,14 @@ export default function OrganicPrizeUpdatePage() {
                 moreThanTenYear: formData.moreThanTenYear2000,
             },
         }
-        console.log(organicPriceData);
-        // const { data } = await axios.patch("https://linkedin-buy-server.vercel.app/api/zero-connection-price/65dcd155adf92949959986bc", { ...formData })
 
-        // if (data.success) {
-        //     toast.success(data.message)
-        //     router.push('/dashboard/zero-connection-price')
-        //     form.resetFields();
-        // }
+        const { data } = await axios.patch("https://linkedin-buy-server.vercel.app/api/organic-price/65de9591ddb773b06d55c449", { ...organicPriceData })
+
+        if (data.success) {
+            toast.success(data.message)
+            router.push('/dashboard/organic-price')
+            form.resetFields();
+        }
     };
 
     const onFinishFailed = (errorInfo: any) => {
@@ -110,7 +110,7 @@ export default function OrganicPrizeUpdatePage() {
         }
     };
 
-    if (loading || !zeroConnectionPrice) {
+    if (loading || !organicPrice) {
         return <div className="h-[60vh] flex items-center justify-center text-center text-2xl font-semibold">Please wait ...</div>;
     }
 
@@ -123,17 +123,46 @@ export default function OrganicPrizeUpdatePage() {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     layout="vertical"
-                // initialValues={{
-                //     sevenDays: zeroConnectionPrice?.sevenDays,
-                //     fifteenDays: zeroConnectionPrice?.fifteenDays,
-                //     thirtyDays: zeroConnectionPrice?.thirtyDays,
-                //     threeMonths: zeroConnectionPrice?.threeMonths,
-                //     sixMonths: zeroConnectionPrice?.sixMonths,
-                //     oneYear: zeroConnectionPrice?.oneYear,
-                //     fourYear: zeroConnectionPrice?.fourYear,
-                //     tenYear: zeroConnectionPrice?.tenYear,
-                //     moreThanTenYear: zeroConnectionPrice?.moreThanTenYear,
-                // }}
+                    initialValues={{
+                        sixMonths9: organicPrice?.nineConnection?.sixMonths,
+                        oneYear9: organicPrice?.nineConnection?.oneYear,
+                        fourYear9: organicPrice?.nineConnection?.fourYear,
+                        tenYear9: organicPrice?.nineConnection?.tenYear,
+                        moreThanTenYear9: organicPrice?.nineConnection?.moreThanTenYear,
+                        sixMonths10: organicPrice?.tenConnection?.sixMonths,
+                        oneYear10: organicPrice?.tenConnection?.oneYear,
+                        fourYear10: organicPrice?.tenConnection?.fourYear,
+                        tenYear10: organicPrice?.tenConnection?.tenYear,
+                        moreThanTenYear10: organicPrice?.tenConnection?.moreThanTenYear,
+                        sixMonths50: organicPrice?.fiftyConnection?.sixMonths,
+                        oneYear50: organicPrice?.fiftyConnection?.oneYear,
+                        fourYear50: organicPrice?.fiftyConnection?.fourYear,
+                        tenYear50: organicPrice?.fiftyConnection?.tenYear,
+                        moreThanTenYear50: organicPrice?.fiftyConnection?.moreThanTenYear,
+                        sixMonths100: organicPrice?.hundredConnection?.sixMonths,
+                        oneYear100: organicPrice?.hundredConnection?.oneYear,
+                        fourYear100: organicPrice?.hundredConnection?.fourYear,
+                        tenYear100: organicPrice?.hundredConnection?.tenYear,
+                        moreThanTenYear100: organicPrice?.hundredConnection?.moreThanTenYear,
+                        oneYear200: organicPrice?.twoHundredConnection?.oneYear,
+                        fourYear200: organicPrice?.twoHundredConnection?.fourYear,
+                        tenYear200: organicPrice?.twoHundredConnection?.tenYear,
+                        moreThanTenYear200: organicPrice?.twoHundredConnection?.moreThanTenYear,
+                        oneYear300: organicPrice?.threeHundredConnection?.oneYear,
+                        fourYear300: organicPrice?.threeHundredConnection?.fourYear,
+                        tenYear300: organicPrice?.threeHundredConnection?.tenYear,
+                        moreThanTenYear300: organicPrice?.threeHundredConnection?.moreThanTenYear,
+                        oneYear500: organicPrice?.fiveHundredConnection?.oneYear,
+                        fourYear500: organicPrice?.fiveHundredConnection?.fourYear,
+                        tenYear500: organicPrice?.fiveHundredConnection?.tenYear,
+                        moreThanTenYear500: organicPrice?.fiveHundredConnection?.moreThanTenYear,
+                        fourYear1000: organicPrice?.oneThousandConnection?.fourYear,
+                        tenYear1000: organicPrice?.oneThousandConnection?.tenYear,
+                        moreThanTenYear1000: organicPrice?.oneThousandConnection?.moreThanTenYear,
+                        fourYear2000: organicPrice?.oneThousandConnection?.fourYear,
+                        tenYear2000: organicPrice?.oneThousandConnection?.tenYear,
+                        moreThanTenYear2000: organicPrice?.oneThousandConnection?.moreThanTenYear,
+                    }}
                 >
                     {/* this is 1 to 9 connection div  */}
                     <div className='pt-4'>

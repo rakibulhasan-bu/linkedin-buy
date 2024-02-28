@@ -37,8 +37,7 @@ export default async function page() {
             hour: 'numeric',
             minute: '2-digit'
         });
-        const period = date.getHours() < 12 ? 'AM' : 'PM';
-        return `${formattedDate} at ${formattedTime} ${period}`;
+        return `${formattedDate} at ${formattedTime}`;
     };
 
     return (

@@ -1,11 +1,31 @@
 'use client'
 
+import { TOrganicPrice } from "@/app/interface/organic-price";
 import { useAppContext } from "@/context";
+import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function OneOrMoreConnectionQuestion() {
+    const [organicPrice, setOrganicPrice] = useState<TOrganicPrice>();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://linkedin-buy-server.vercel.app/api/organic-price/65de9591ddb773b06d55c449');
+                setOrganicPrice(response?.data.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const { questionData, setQuestionData } = useAppContext();
     const router = useRouter()
     const [questionNo, setQuestionNo] = useState(0);
@@ -74,11 +94,11 @@ export default function OneOrMoreConnectionQuestion() {
     }
 
     const connectionPrize = {
-        sixMonths: questionData?.organicConnection === 9 ? 4 : 0 || questionData?.organicConnection === 10 ? 5 : 0 || questionData?.organicConnection === 50 ? 8 : 0 || questionData?.organicConnection === 100 ? 10 : 0,
-        oneYear: questionData?.organicConnection === 9 ? 6 : 0 || questionData?.organicConnection === 10 ? 7 : 0 || questionData?.organicConnection === 50 ? 10 : 0 || questionData?.organicConnection === 100 ? 14 : 0 || questionData?.organicConnection === 200 ? 15 : 0 || questionData?.organicConnection === 300 ? 25 : 0 || questionData?.organicConnection === 500 ? 40 : 0,
-        fourYear: questionData?.organicConnection === 9 ? 10 : 0 || questionData?.organicConnection === 10 ? 11 : 0 || questionData?.organicConnection === 50 ? 16 : 0 || questionData?.organicConnection === 100 ? 23 : 0 || questionData?.organicConnection === 200 ? 28 : 0 || questionData?.organicConnection === 300 ? 34 : 0 || questionData?.organicConnection === 500 ? 50 : 0 || questionData?.organicConnection === 1000 ? 90 : 0 || questionData?.organicConnection === 2000 ? 160 : 0,
-        tenYear: questionData?.organicConnection === 9 ? 11 : 0 || questionData?.organicConnection === 10 ? 12 : 0 || questionData?.organicConnection === 50 ? 20 : 0 || questionData?.organicConnection === 100 ? 27 : 0 || questionData?.organicConnection === 200 ? 35 : 0 || questionData?.organicConnection === 300 ? 43 : 0 || questionData?.organicConnection === 500 ? 55 : 0 || questionData?.organicConnection === 1000 ? 100 : 0 || questionData?.organicConnection === 2000 ? 185 : 0,
-        moreThanTenYear: questionData?.organicConnection === 9 ? 11.5 : 0 || questionData?.organicConnection === 10 ? 13 : 0 || questionData?.organicConnection === 50 ? 21 : 0 || questionData?.organicConnection === 100 ? 28 : 0 || questionData?.organicConnection === 200 ? 37 : 0 || questionData?.organicConnection === 300 ? 45 : 0 || questionData?.organicConnection === 500 ? 60 : 0 || questionData?.organicConnection === 1000 ? 110 : 0 || questionData?.organicConnection === 2000 ? 200 : 0,
+        sixMonths: questionData?.organicConnection === 9 ? organicPrice?.nineConnection?.sixMonths : 0 || questionData?.organicConnection === 10 ? organicPrice?.tenConnection?.sixMonths : 0 || questionData?.organicConnection === 50 ? organicPrice?.fiftyConnection?.sixMonths : 0 || questionData?.organicConnection === 100 ? organicPrice?.hundredConnection?.sixMonths : 0,
+        oneYear: questionData?.organicConnection === 9 ? organicPrice?.nineConnection?.oneYear : 0 || questionData?.organicConnection === 10 ? organicPrice?.tenConnection?.oneYear : 0 || questionData?.organicConnection === 50 ? organicPrice?.fiftyConnection?.oneYear : 0 || questionData?.organicConnection === 100 ? organicPrice?.hundredConnection?.oneYear : 0 || questionData?.organicConnection === 200 ? organicPrice?.twoHundredConnection?.oneYear : 0 || questionData?.organicConnection === 300 ? 25 : 0 || questionData?.organicConnection === 500 ? organicPrice?.fiveHundredConnection?.oneYear : 0,
+        fourYear: questionData?.organicConnection === 9 ? organicPrice?.nineConnection?.fourYear : 0 || questionData?.organicConnection === 10 ? organicPrice?.tenConnection?.fourYear : 0 || questionData?.organicConnection === 50 ? organicPrice?.fiftyConnection?.fourYear : 0 || questionData?.organicConnection === 100 ? organicPrice?.hundredConnection?.fourYear : 0 || questionData?.organicConnection === 200 ? organicPrice?.twoHundredConnection?.fourYear : 0 || questionData?.organicConnection === 300 ? 34 : 0 || questionData?.organicConnection === 500 ? organicPrice?.fiveHundredConnection?.fourYear : 0 || questionData?.organicConnection === 1000 ? organicPrice?.hundredConnection?.fourYear : 0 || questionData?.organicConnection === 2000 ? organicPrice?.twoThousandConnection?.fourYear : 0,
+        tenYear: questionData?.organicConnection === 9 ? organicPrice?.nineConnection?.tenYear : 0 || questionData?.organicConnection === 10 ? organicPrice?.tenConnection?.tenYear : 0 || questionData?.organicConnection === 50 ? organicPrice?.fiftyConnection?.tenYear : 0 || questionData?.organicConnection === 100 ? organicPrice?.hundredConnection?.tenYear : 0 || questionData?.organicConnection === 200 ? organicPrice?.twoHundredConnection?.tenYear : 0 || questionData?.organicConnection === 300 ? 43 : 0 || questionData?.organicConnection === 500 ? organicPrice?.fiveHundredConnection?.tenYear : 0 || questionData?.organicConnection === 1000 ? organicPrice?.hundredConnection?.tenYear : 0 || questionData?.organicConnection === 2000 ? organicPrice?.twoThousandConnection?.tenYear : 0,
+        moreThanTenYear: questionData?.organicConnection === 9 ? organicPrice?.nineConnection?.moreThanTenYear : 0 || questionData?.organicConnection === 10 ? organicPrice?.tenConnection?.moreThanTenYear : 0 || questionData?.organicConnection === 50 ? organicPrice?.fiftyConnection?.moreThanTenYear : 0 || questionData?.organicConnection === 100 ? organicPrice?.hundredConnection?.moreThanTenYear : 0 || questionData?.organicConnection === 200 ? organicPrice?.twoHundredConnection?.moreThanTenYear : 0 || questionData?.organicConnection === 300 ? 45 : 0 || questionData?.organicConnection === 500 ? organicPrice?.fiveHundredConnection?.moreThanTenYear : 0 || questionData?.organicConnection === 1000 ? organicPrice?.hundredConnection?.moreThanTenYear : 0 || questionData?.organicConnection === 2000 ? organicPrice?.twoThousandConnection?.moreThanTenYear : 0,
     }
 
     const manualConnectionPrize = {
@@ -94,6 +114,11 @@ export default function OneOrMoreConnectionQuestion() {
     }
 
     console.log(questionData);
+
+    if (loading || (questionData.connectionType === "organic" && !organicPrice)) {
+        return <div className="h-[60vh] flex items-center justify-center text-center text-2xl font-semibold">Please wait ...</div>;
+    }
+
     return (
         <div className='max-w-4xl mx-auto py-4 lg:py-6 lg:pt-12 px-2 lg:px-0'>
             {/* {questionData.quantity}, {questionData.connection} {activeQuestionValue !== null ? "true" : "false"} , {questionData.accountAge}, {questionData.connectionType} ,{activeQuestionValue} */}
