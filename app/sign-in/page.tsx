@@ -23,7 +23,7 @@ const SignIn = () => {
     const router = useRouter()
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        if (data.email === process.env.NEXT_PUBLIC_EMAIL && data.password === process.env.NEXT_PUBLIC_PASSWORD) {
+        if (data.email === process.env.NEXT_EMAIL && data.password === process.env.NEXT_PASSWORD) {
             toast.success("Login successful!")
             router.push('/dashboard');
         } else {
